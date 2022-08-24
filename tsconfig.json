@@ -26,6 +26,7 @@
       "@services/*": ["src/services/*"],
       "@shared/*": ["src/shared/*"],
       "@layout/*": ["src/layout/*"],
+      "@styles/*": ["src/styles/*"],
       "@src/*": ["src/*"]
     }
   },

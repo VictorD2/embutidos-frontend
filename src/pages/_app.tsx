@@ -8,7 +8,7 @@ import SplashLayout from '@layout/splash.layout';
 import UserLayout from '@layout/user.layout';
 import GuestLayout from '@layout/guest.layout';
 import { AuthProvider } from '@contexts/auth.context';
-import favicon from '../public/logo_prospark.jpg';
+import favicon from '../../public/logo_prospark.jpg';
 
 const rutasPrivadas = ['/dashboard'];
 const rutasPublicas = ['/', '/code-verify', '/change-password'];
