@@ -1,4 +1,4 @@
-const colors = require('tailwindcss/colors')
+const colors = require('tailwindcss/colors');
 module.exports = {
   content: [
     './src/components/**/*.{js,ts,jsx,tsx}',
@@ -9,8 +9,8 @@ module.exports = {
   ],
   theme: {
     colors: {
-      primary: '#1F2024',
-      secondary: '#6676EF',
+      primary: '#63D7C4',
+      secondary: '#33435A',
       transparent: 'transparent',
       background: '#F2F2F2',
       current: 'currentColor',
@@ -41,4 +41,4 @@ module.exports = {
     extend: {},
   },
   plugins: [require('tailwind-scrollbar')],
-}
+};

@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import jwtDecode from 'jwt-decode';
 
 import { IAuthContext, initialStateUser, IUser } from '@interfaces/auth.interface';
+import jwtDecode from 'jwt-decode';
 
-const rutesPublicas = ['/iniciar', '/registrarse'];
+const rutesPublicas = ['/login', '/'];
 
 export const AuthContext = React.createContext({} as IAuthContext);
 
@@ -18,14 +18,14 @@ export const AuthProvider = ({ children }: { children: JSX.Element }) => {
       const token = localStorage.getItem('token'); //getting token
       if (token) {
         const usuario = jwtDecode<IUser>(token);
-        const secondsSinceEpoch = Math.round(Date.now() / 1000);
+        // const secondsSinceEpoch = Math.round(Date.now() / 1000);
 
         //checking for time expiration of the token
-        if (secondsSinceEpoch > parseInt(usuario.exp + '')) {
-          localStorage.removeItem('token');
-          router.push('/');
-          return;
-        }
+        // if (secondsSinceEpoch > parseInt(usuario.exp + '')) {
+        //   localStorage.removeItem('token');
+        //   router.push('/');
+        //   return;
+        // }
         setUser(usuario);
         return;
       }

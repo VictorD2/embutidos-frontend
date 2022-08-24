@@ -4,14 +4,17 @@ import type { AppProps } from 'next/app';
 import { useRouter } from 'next/router';
 import NextNProgress from 'nextjs-progressbar';
 import '@styles/global.css';
+import 'remixicon/fonts/remixicon.css';
+import 'react-toastify/dist/ReactToastify.css';
 import SplashLayout from '@layout/splash.layout';
 import UserLayout from '@layout/user.layout';
 import GuestLayout from '@layout/guest.layout';
 import { AuthProvider } from '@contexts/auth.context';
 import favicon from '../../public/logo_prospark.jpg';
+import { ToastContainer } from 'react-toastify';
 
 const rutasPrivadas = ['/dashboard'];
-const rutasPublicas = ['/', '/code-verify', '/change-password'];
+const rutasPublicas = ['/', '/login'];
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
   const router = useRouter();
@@ -26,6 +29,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
     );
     return vali;
   };
+
   // This is for layout
   const validarRutaPrivada = (): boolean => {
     let vali = false;
@@ -35,8 +39,10 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
     );
     return vali;
   };
+
   useEffect(() => {
     const token = localStorage.getItem('token');
+    console.log(router.route);
     if (token) {
       if (rutasPublicas.includes(router.route)) setTimeout(() => setLoading(true), 2000);
       return;
@@ -51,13 +57,16 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
       <>
         {/* eslint-disable-next-line @next/next/no-script-in-head */}
         <Head>
-          <title>PAGINA {router.route === '/' ? '- LOGIN' : router.route.replace('/', '- ').toUpperCase()}</title>
+          <title>
+            {router.route === '/' ? 'PAGINA - LOGIN' : router.route.replace('/', 'PAGINA - ').toUpperCase()}
+          </title>
           <meta name="viewport" content="initial-scale=1, width=device-width" />
           <link rel="icon" type="image/png" href={favicon.src}></link>
         </Head>
         {loading ? (
           <>
             <NextNProgress showOnShallow={false} color="#4D1612" />
+            <ToastContainer />
             {validarRutaPublica() ? (
               <GuestLayout>
                 <Component {...pageProps} />

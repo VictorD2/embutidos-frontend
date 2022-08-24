@@ -14,8 +14,6 @@ type AppButtonProps = {
   type?: 'button' | 'submit' | 'reset' | undefined;
   className?: string;
   loading?: boolean;
-  hover?: string;
-  focus?: string;
 };
 
 export const AppButton = ({
@@ -30,19 +28,9 @@ export const AppButton = ({
   height = 'h-10',
   type = 'button',
   loading = true,
-  hover = '',
-  focus = '',
 }: AppButtonProps) => {
   const classNames = (...classes: any): string => {
     return classes.filter(Boolean).join(' ');
-  };
-
-  const getHover = (text: string) => {
-    return `hover:${text}`.replaceAll(' ', ' hover:');
-  };
-
-  const getFocus = (text: string) => {
-    return `focus:${text}`.replaceAll(' ', ' focus:');
   };
 
   return (
@@ -58,8 +46,6 @@ export const AppButton = ({
           variant == 'contained' ? bgColor : '',
           variant == 'contained' ? 'hover:opacity-90' : 'hover:' + bgColor + ' hover:bg-opacity-25 hover:' + textColor,
           height,
-          getHover(hover),
-          getFocus(focus),
           'rounded-md w-full flex justify-center items-center px-4 py-2 button capitalize'
         )}
       >
