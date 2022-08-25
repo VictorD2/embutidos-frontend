@@ -51,9 +51,10 @@ export const LoginProvider = ({ children }: { children: JSX.Element }) => {
         setUser(user);
         router.push('/');
       } catch (error: any) {
-        console.log(error);
+        let errorMessage = error.message;
+        if (error.response.data.message) errorMessage = error.response.data.message;
         toast.update(toastId, {
-          render: error.message,
+          render: errorMessage,
           type: 'warning',
           isLoading: false,
           autoClose: 2000,
@@ -88,7 +89,16 @@ export const LoginProvider = ({ children }: { children: JSX.Element }) => {
         router.push('/');
       } catch (error: any) {
         console.log(error);
-        toast.update(toastId, { render: error.message, type: 'warning', isLoading: false });
+        let errorMessage = error.message;
+        if (error.response.data.message) errorMessage = error.response.data.message;
+        toast.update(toastId, {
+          render: errorMessage,
+          type: 'warning',
+          isLoading: false,
+          autoClose: 2000,
+          closeButton: true,
+          draggable: true,
+        });
       }
       setLoading(false);
     },

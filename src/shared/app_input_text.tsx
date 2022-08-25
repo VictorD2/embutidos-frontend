@@ -28,9 +28,12 @@ type AppInputTextProps = {
   classNameCaption?: string;
   labelWidth?: string;
   passwordEye?: boolean;
+  passwordEyeColor?: string;
+  required?: boolean;
 };
 export const AppInputText = ({
   passwordEye = false,
+  required = false,
   labelWidth = '',
   classNameCaption = '',
   disabled = false,
@@ -53,6 +56,7 @@ export const AppInputText = ({
   labelColor = 'text-gray-700',
   className = '',
   height = 'h-10',
+  passwordEyeColor = 'text-black',
 }: AppInputTextProps) => {
   const classNames = (...classes: any): string => {
     return classes.filter(Boolean).join(' ');
@@ -67,9 +71,10 @@ export const AppInputText = ({
         <div className={`my-2 ${labelWidth}`}>
           <label
             htmlFor={name}
-            className={'block text-sm whitespace-nowrap font-medium capitalize ' + labelColor + '  mt-1'}
+            className={'block text-sm whitespace-nowrap relative font-medium capitalize ' + labelColor + '  mt-1'}
           >
             {label}
+            {required && <span className="text-red-500 ml-2">*</span>}
           </label>
         </div>
       )}
@@ -104,7 +109,7 @@ export const AppInputText = ({
                     setEye(true);
                     setTipo('text');
                   }}
-                  className="w-5 absolute top-10px right-15px"
+                  className={classNames('w-5 h-5 absolute top-[10px] right-[15px]', passwordEyeColor)}
                   // style={{ top: '10px', right: '15px' }}
                 />
               ) : (
@@ -113,7 +118,7 @@ export const AppInputText = ({
                     setEye(false);
                     setTipo('password');
                   }}
-                  className="w-5 absolute top-10px right-15px"
+                  className={classNames('w-5 h-5 absolute top-[10px] right-[15px]', passwordEyeColor)}
                   // style={{ top: '10px', right: '15px' }}
                 />
               )}

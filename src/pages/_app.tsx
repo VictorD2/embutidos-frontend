@@ -42,9 +42,9 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
 
   useEffect(() => {
     const token = localStorage.getItem('token');
-    console.log(router.route);
     if (token) {
-      if (rutasPublicas.includes(router.route)) setTimeout(() => setLoading(true), 2000);
+      if (rutasPublicas.includes(router.route)) router.push('/');
+      setTimeout(() => setLoading(true), 2000);
       return;
     }
     if (!rutasPublicas.includes(router.route)) router.push('/');
