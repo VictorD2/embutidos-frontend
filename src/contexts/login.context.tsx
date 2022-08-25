@@ -44,15 +44,25 @@ export const LoginProvider = ({ children }: { children: JSX.Element }) => {
     validateOnChange: false,
     onSubmit: async formValue => {
       setLoading(true);
+      // Message Please Wait...
       let toastId = toast.loading('Por favor espere...');
       try {
         const user: IUser = await ClsAuth.login(formValue);
-        toast.update(toastId, { render: `Bienvenido ${user.name}`, type: 'success', isLoading: false });
+        // Message Successs
+        toast.update(toastId, {
+          render: `Bienvenido ${user.name}`,
+          type: 'success',
+          isLoading: false,
+          autoClose: 2000,
+          closeButton: true,
+          draggable: true,
+        });
         setUser(user);
         router.push('/');
       } catch (error: any) {
         let errorMessage = error.message;
         if (error.response.data.message) errorMessage = error.response.data.message;
+        // Message Error
         toast.update(toastId, {
           render: errorMessage,
           type: 'warning',
@@ -74,10 +84,12 @@ export const LoginProvider = ({ children }: { children: JSX.Element }) => {
     validateOnChange: false,
     onSubmit: async formValue => {
       setLoading(true);
+      // Message Please Wait...
       let toastId = toast.loading('Por favor espere...');
       try {
         const user: IUser = await ClsAuth.register(formValue);
         setUser(user);
+        // Message Successs
         toast.update(toastId, {
           render: `Bienvenido ${user.name}`,
           type: 'success',
@@ -88,9 +100,9 @@ export const LoginProvider = ({ children }: { children: JSX.Element }) => {
         });
         router.push('/');
       } catch (error: any) {
-        console.log(error);
         let errorMessage = error.message;
         if (error.response.data.message) errorMessage = error.response.data.message;
+        // Message Error
         toast.update(toastId, {
           render: errorMessage,
           type: 'warning',

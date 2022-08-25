@@ -8,7 +8,7 @@ type FocusEvent = React.FocusEvent<HTMLInputElement>;
 type SubmitEvent = React.FormEvent<HTMLFormElement>;
 
 const FormRegister = () => {
-  const { formikRegister } = useLogin();
+  const { formikRegister, loading } = useLogin();
 
   const handleChangeInput = (e: ChangeEvent) => {
     formikRegister.setFieldValue(e.target.name, e.target.value);
@@ -84,13 +84,7 @@ const FormRegister = () => {
         helpText={formikRegister.errors.lastname}
         value={formikRegister.values.lastname}
       />
-      <AppButton
-        className="mt-5 rounded-xl"
-        type="submit"
-        onClick={() => {
-          formikRegister.submitForm();
-        }}
-      >
+      <AppButton loading={!loading} disabled={loading} className="mt-5 rounded-xl" type="submit" onClick={() => {}}>
         Registrarme
       </AppButton>
     </form>

@@ -8,7 +8,7 @@ type FocusEvent = React.FocusEvent<HTMLInputElement>;
 type SubmitEvent = React.FormEvent<HTMLFormElement>;
 
 const FormLogin = () => {
-  const { formikLogin } = useLogin();
+  const { formikLogin, loading } = useLogin();
 
   const handleChangeInput = (e: ChangeEvent) => {
     formikLogin.setFieldValue(e.target.name, e.target.value);
@@ -56,13 +56,7 @@ const FormLogin = () => {
         helpText={formikLogin.errors.password}
         value={formikLogin.values.password}
       />
-      <AppButton
-        className="mt-5 rounded-xl"
-        type="submit"
-        onClick={() => {
-          formikLogin.submitForm();
-        }}
-      >
+      <AppButton loading={!loading} disabled={loading} className="mt-5 rounded-xl" type="submit" onClick={() => {}}>
         Entrar
       </AppButton>
     </form>
