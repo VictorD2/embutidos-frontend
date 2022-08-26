@@ -18,8 +18,11 @@ export interface ILogin {
 export interface IRegister {
   email: string;
   password: string;
+  repeatPassword:string;
   name: string;
-  lastname: string;
+  address: string;
+  ruc: string;
+  phone: string;
 }
 
 export const initialStateLogin = {
@@ -30,8 +33,11 @@ export const initialStateLogin = {
 export const initialStateRegister = {
   email: '',
   password: '',
-  name: '',
-  lastname: '',
+  repeatPassword:"",
+  name: "",
+  address: "",
+  ruc: "",
+  phone: "",
 };
 
 export interface LoginRequest {
