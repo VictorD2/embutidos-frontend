@@ -20,25 +20,27 @@ export const LoginProvider = ({ children }: { children: JSX.Element }) => {
 
   // Schema Login
   const LoginSchema = {
-    email: Yup.string().required('El campo correo es obligatorio').email('El correo no tiene un formato adecuado'),
+    email: Yup.string().required('Este campo es obligatorio').email('El correo no tiene un formato adecuado'),
     password: Yup.string()
-      .required('El campo contraseña es obligatorio')
+      .required('Este campo es obligatorio')
       .min(8, 'La contraseña tiene que ser de minimo 8 caracteres '),
   };
 
   // Schema Register
   const RegisterSchema = {
-    email: Yup.string().required('El campo correo es obligatorio').email('El correo no tiene un formato adecuado'),
+    email: Yup.string().required('Este campo es obligatorio').email('El correo no tiene un formato adecuado'),
     password: Yup.string()
-      .required('El campo contraseña es obligatorio')
+      .required('Este campo es obligatorio')
       .min(8, 'La contraseña tiene que ser de minimo 8 caracteres '),
     repeatPassword: Yup.string()
-      .required('El campo repetir contraseña es obligatorio')
+      .required('Este campo es obligatorio')
       .min(8, 'La contraseña tiene que ser de minimo 8 caracteres '),
-    name: Yup.string().required('El campo nombre es obligatorio'),
+    name: Yup.string().required('Este campo es obligatorio'),
     address: Yup.string().optional(),
-    phone: Yup.string().optional().length(9,"El telefono debe ser de 9 números"),
-    ruc: Yup.string().required("El campo ruc o dni es obligatorio").matches(/^[0-9]{8}(?:-[0-9]{2})?$/, 'El dni o ruc no coincide el tamaño de digitos')
+    phone: Yup.string().optional().length(9, 'El telefono debe ser de 9 números'),
+    ruc: Yup.string()
+      .required('Este campo es obligatorio')
+      .matches(/^[0-9]{8}(?:-[0-9]{2})?$/, 'El dni o ruc no coincide el tamaño de digitos'),
   };
 
   // Submit Login
@@ -63,11 +65,13 @@ export const LoginProvider = ({ children }: { children: JSX.Element }) => {
           draggable: true,
         });
         setUser(user);
+        console.log(user);
+        if ((user.rol.name = 'Administrador')) return router.push('/dashboard/pedidos');
         router.push('/');
       } catch (error: any) {
         let errorMessage = error.message;
-        if(error.response){
-          if(error.response.data){
+        if (error.response) {
+          if (error.response.data) {
             if (error.response.data.message) errorMessage = error.response.data.message;
           }
         }
@@ -110,8 +114,8 @@ export const LoginProvider = ({ children }: { children: JSX.Element }) => {
         router.push('/');
       } catch (error: any) {
         let errorMessage = error.message;
-        if(error.response){
-          if(error.response.data){
+        if (error.response) {
+          if (error.response.data) {
             if (error.response.data.message) errorMessage = error.response.data.message;
           }
         }

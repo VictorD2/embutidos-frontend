@@ -3,7 +3,6 @@ import Head from 'next/head';
 import type { AppProps } from 'next/app';
 import { useRouter } from 'next/router';
 import NextNProgress from 'nextjs-progressbar';
-import '@styles/global.css';
 import 'remixicon/fonts/remixicon.css';
 import 'react-toastify/dist/ReactToastify.css';
 import SplashLayout from '@layout/splash.layout';
@@ -13,8 +12,9 @@ import { AuthProvider } from '@contexts/auth.context';
 import favicon from '../../public/logo_prospark.jpg';
 import { ToastContainer } from 'react-toastify';
 import AdminLayout from '@layout/admin.layout';
+import '@styles/global.css';
 
-const rutasPrivadas = ['/dashboard'];
+const rutasPrivadas = ['/dashboard', '/dashboard/pedidos', '/dashboard/productos', '/dashboard/clientes'];
 const rutasPublicas = ['/login'];
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
@@ -66,7 +66,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
         </Head>
         {loading ? (
           <>
-            <NextNProgress showOnShallow={false} color="#4D1612" />
+            <NextNProgress showOnShallow={false} color="#63D7C4" />
             <ToastContainer />
             {validarRutaPublica() ? (
               <GuestLayout>

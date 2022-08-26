@@ -29,6 +29,7 @@ type AppInputTextProps = {
   labelWidth?: string;
   passwordEye?: boolean;
   passwordEyeColor?: string;
+  helpTextHeight?: string;
   required?: boolean;
 };
 export const AppInputText = ({
@@ -56,6 +57,7 @@ export const AppInputText = ({
   labelColor = 'text-gray-700',
   className = '',
   height = 'h-10',
+  helpTextHeight = 'h-2',
   passwordEyeColor = 'text-black',
 }: AppInputTextProps) => {
   const classNames = (...classes: any): string => {
@@ -126,7 +128,7 @@ export const AppInputText = ({
           )}
         </div>
         {helpText !== undefined && (
-          <div className={classNames(helpColor, 'caption mt-1 h-2', classNameCaption)}>{helpText}</div>
+          <div className={classNames(helpColor, 'caption mt-1', helpTextHeight, classNameCaption)}>{helpText}</div>
         )}
       </div>
     </div>

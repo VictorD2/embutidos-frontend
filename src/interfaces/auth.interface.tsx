@@ -14,6 +14,12 @@ export interface IUser {
   dni: string;
   comercialName: string;
   phone: string;
+  status: boolean;
+  rol_id: number;
+  rol: {
+    id: number;
+    name: string;
+  };
 }
 
 export const initialStateUser = {
@@ -24,4 +30,10 @@ export const initialStateUser = {
   dni: '',
   comercialName: '',
   phone: '',
+  status: false,
+  rol_id: 2,
+  rol: {
+    id: 2,
+    name: 'Usuario',
+  },
 };

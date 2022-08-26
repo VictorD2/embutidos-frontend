@@ -18,6 +18,10 @@ export const AuthProvider = ({ children }: { children: JSX.Element }) => {
       const token = localStorage.getItem('token'); //getting token
       if (token) {
         const usuario = jwtDecode<IUser>(token);
+        if (router.pathname.includes('/dashboard') && usuario.rol.name !== 'Administrador') {
+          setUser(usuario);
+          return router.push('/');
+        }
         // const secondsSinceEpoch = Math.round(Date.now() / 1000);
 
         //checking for time expiration of the token
@@ -26,6 +30,7 @@ export const AuthProvider = ({ children }: { children: JSX.Element }) => {
         //   router.push('/');
         //   return;
         // }
+
         setUser(usuario);
         return;
       }

@@ -24,7 +24,7 @@ const FormRegister = () => {
   };
 
   return (
-    <form onSubmit={handleFormSubmit} className="flex flex-col gap-1">
+    <form onSubmit={handleFormSubmit} className="flex flex-col gap-6 pr-10 ">
       <AppInputText
         className="focus:border-b-primary focus:border-b-2 border-b-white border-b-2 text-white"
         labelColor="text-white"
@@ -53,19 +53,19 @@ const FormRegister = () => {
         helpText={formikRegister.errors.email}
         value={formikRegister.values.email}
       />
-      <div className='flex justify-between gap-7'>
+      <div className="flex justify-between gap-7">
         <AppInputText
           className="focus:border-b-primary focus:border-b-2 border-b-white border-b-2 text-white"
           labelColor="text-white"
           bgColor="bg-transparent"
           label="Contraseña"
-          width='w-1/2'
+          width="w-1/2"
           onChange={handleChangeInput}
           onFocus={handleFocusInput}
           name="password"
           type="password"
-          
           required
+          // helpTextHeight="h-5"
           passwordEyeColor="text-white"
           helpColor="text-red-600"
           placeholder="Contraseña"
@@ -77,11 +77,12 @@ const FormRegister = () => {
           labelColor="text-white"
           bgColor="bg-transparent"
           label="Repita su Contraseña"
+          // helpTextHeight="h-5"
           onChange={handleChangeInput}
           onFocus={handleFocusInput}
           name="repeatPassword"
           type="password"
-          width='w-1/2'
+          width="w-1/2"
           required
           passwordEyeColor="text-white"
           helpColor="text-red-600"
@@ -132,7 +133,7 @@ const FormRegister = () => {
         value={formikRegister.values.phone}
       />
 
-      <AppButton loading={!loading} disabled={loading} className="mt-5 rounded-xl" type="submit" onClick={() => { }}>
+      <AppButton loading={!loading} disabled={loading} className="mt-5 rounded-xl" type="submit" onClick={() => {}}>
         Registrarme
       </AppButton>
     </form>

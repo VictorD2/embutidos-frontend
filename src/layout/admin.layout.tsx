@@ -1,19 +1,33 @@
-import { ReactNode } from 'react';
+import { ReactNode, useState } from 'react';
 import 'react-toastify/dist/ReactToastify.css';
-import AppHeader from '@shared/app_header';
-import AppFooter from '@shared/app_footer';
+import AppSidebar from '@shared/app_sidebar';
+import { AppDrawer } from '@shared/app_drawer';
+import { AppHeaderUser } from '@shared/app_header_admin';
 
 type Props = {
   children: ReactNode;
 };
 
 const AdminLayout = ({ children }: Props) => {
+  const [drawer, setDrawer] = useState<boolean>(false);
   return (
     <div className="w-full">
-      <AppHeader />
-      <p>admin</p>
-      <main className="w-full h-full">{children}</main>
-      <AppFooter />
+      <AppDrawer open={drawer} setOpen={setDrawer}>
+        <AppSidebar setDrawer={setDrawer} />
+      </AppDrawer>
+      <div className="min-h-full app-row bg-background">
+        <div className="hidden md:block fixed z-30">
+          <div className="lg:app-drawer md:w-24 hover:md:app-drawer h-screen">
+            <AppSidebar />
+          </div>
+        </div>
+      </div>
+      <div className="app-col lg:pl-64 md:pl-24 h-screen">
+        <AppHeaderUser openDrawer={setDrawer} />
+        <div className="flex-grow bg-background">
+          <main className="h-full px-10 py-6">{children}</main>
+        </div>
+      </div>
     </div>
   );
 };
