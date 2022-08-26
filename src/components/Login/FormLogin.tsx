@@ -28,7 +28,7 @@ const FormLogin = () => {
       <AppInputText
         labelColor="text-white"
         className="focus:border-b-primary focus:border-b-2 border-b-white border-b-2 text-white"
-        label="Correo Electrónico"
+        label="Correo Electrónico o DNI"
         onChange={handleChangeInput}
         onFocus={handleFocusInput}
         bgColor="bg-transparent"

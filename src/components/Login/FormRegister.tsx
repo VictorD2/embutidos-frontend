@@ -24,7 +24,21 @@ const FormRegister = () => {
   };
 
   return (
-    <form onSubmit={handleFormSubmit} className="flex flex-col gap-5">
+    <form onSubmit={handleFormSubmit} className="flex flex-col gap-1">
+      <AppInputText
+        className="focus:border-b-primary focus:border-b-2 border-b-white border-b-2 text-white"
+        labelColor="text-white"
+        bgColor="bg-transparent"
+        label="Nombre Completo"
+        onChange={handleChangeInput}
+        onFocus={handleFocusInput}
+        name="name"
+        required
+        helpColor="text-red-600"
+        placeholder="Ingrese su Nombre Completo"
+        helpText={formikRegister.errors.name}
+        value={formikRegister.values.name}
+      />
       <AppInputText
         labelColor="text-white"
         className="focus:border-b-primary focus:border-b-2 border-b-white border-b-2 text-white"
@@ -39,52 +53,86 @@ const FormRegister = () => {
         helpText={formikRegister.errors.email}
         value={formikRegister.values.email}
       />
+      <div className='flex justify-between gap-7'>
+        <AppInputText
+          className="focus:border-b-primary focus:border-b-2 border-b-white border-b-2 text-white"
+          labelColor="text-white"
+          bgColor="bg-transparent"
+          label="Contraseña"
+          width='w-1/2'
+          onChange={handleChangeInput}
+          onFocus={handleFocusInput}
+          name="password"
+          type="password"
+          
+          required
+          passwordEyeColor="text-white"
+          helpColor="text-red-600"
+          placeholder="Contraseña"
+          helpText={formikRegister.errors.password}
+          value={formikRegister.values.password}
+        />
+        <AppInputText
+          className="focus:border-b-primary focus:border-b-2 border-b-white border-b-2 text-white"
+          labelColor="text-white"
+          bgColor="bg-transparent"
+          label="Repita su Contraseña"
+          onChange={handleChangeInput}
+          onFocus={handleFocusInput}
+          name="repeatPassword"
+          type="password"
+          width='w-1/2'
+          required
+          passwordEyeColor="text-white"
+          helpColor="text-red-600"
+          placeholder="Repita su contraseña"
+          helpText={formikRegister.errors.repeatPassword}
+          value={formikRegister.values.repeatPassword}
+        />
+      </div>
+
       <AppInputText
         className="focus:border-b-primary focus:border-b-2 border-b-white border-b-2 text-white"
         labelColor="text-white"
         bgColor="bg-transparent"
-        label="Contraseña"
+        label="RUC o DNI"
+        required
         onChange={handleChangeInput}
         onFocus={handleFocusInput}
-        name="password"
-        type="password"
-        passwordEye
-        required
-        passwordEyeColor="text-white"
+        name="ruc"
         helpColor="text-red-600"
-        placeholder="Ingrese su contraseña"
-        helpText={formikRegister.errors.password}
-        value={formikRegister.values.password}
+        placeholder="Ingrese su RUC o DNI"
+        helpText={formikRegister.errors.ruc}
+        value={formikRegister.values.ruc}
       />
       <AppInputText
         className="focus:border-b-primary focus:border-b-2 border-b-white border-b-2 text-white"
         labelColor="text-white"
         bgColor="bg-transparent"
-        label="Nombre"
+        label="Dirección"
         onChange={handleChangeInput}
         onFocus={handleFocusInput}
-        name="name"
-        required
+        name="address"
         helpColor="text-red-600"
-        placeholder="Ingrese su Nombre"
-        helpText={formikRegister.errors.name}
-        value={formikRegister.values.name}
+        placeholder="Ingrese su Dirección"
+        helpText={formikRegister.errors.address}
+        value={formikRegister.values.address}
       />
       <AppInputText
-        className="focus:border-b-primary focus:border-b-2  border-b-white border-b-2 text-white"
+        className="focus:border-b-primary focus:border-b-2 border-b-white border-b-2 text-white"
         labelColor="text-white"
-        label="Apellido"
-        required
         bgColor="bg-transparent"
+        label="Teléfono"
         onChange={handleChangeInput}
         onFocus={handleFocusInput}
-        name="lastname"
+        name="phone"
         helpColor="text-red-600"
-        placeholder="Ingrese su Apellido"
-        helpText={formikRegister.errors.lastname}
-        value={formikRegister.values.lastname}
+        placeholder="Ingrese su telefono"
+        helpText={formikRegister.errors.phone}
+        value={formikRegister.values.phone}
       />
-      <AppButton loading={!loading} disabled={loading} className="mt-5 rounded-xl" type="submit" onClick={() => {}}>
+
+      <AppButton loading={!loading} disabled={loading} className="mt-5 rounded-xl" type="submit" onClick={() => { }}>
         Registrarme
       </AppButton>
     </form>

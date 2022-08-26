@@ -71,7 +71,7 @@ export const AppInputText = ({
         <div className={`my-2 ${labelWidth}`}>
           <label
             htmlFor={name}
-            className={'block text-sm whitespace-nowrap relative font-medium capitalize ' + labelColor + '  mt-1'}
+            className={'block text-sm whitespace-nowrap relative font-medium  ' + labelColor + '  mt-1'}
           >
             {label}
             {required && <span className="text-red-500 ml-2">*</span>}

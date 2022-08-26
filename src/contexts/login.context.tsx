@@ -32,8 +32,13 @@ export const LoginProvider = ({ children }: { children: JSX.Element }) => {
     password: Yup.string()
       .required('El campo contraseña es obligatorio')
       .min(8, 'La contraseña tiene que ser de minimo 8 caracteres '),
+    repeatPassword: Yup.string()
+      .required('El campo repetir contraseña es obligatorio')
+      .min(8, 'La contraseña tiene que ser de minimo 8 caracteres '),
     name: Yup.string().required('El campo nombre es obligatorio'),
-    lastname: Yup.string().required('El campo apellido es obligatorio'),
+    address: Yup.string().optional(),
+    phone: Yup.string().optional().length(9,"El telefono debe ser de 9 números"),
+    ruc: Yup.string().required("El campo ruc o dni es obligatorio").matches(/^[0-9]{8}(?:-[0-9]{2})?$/, 'El dni o ruc no coincide el tamaño de digitos')
   };
 
   // Submit Login
@@ -61,7 +66,11 @@ export const LoginProvider = ({ children }: { children: JSX.Element }) => {
         router.push('/');
       } catch (error: any) {
         let errorMessage = error.message;
-        if (error.response.data.message) errorMessage = error.response.data.message;
+        if(error.response){
+          if(error.response.data){
+            if (error.response.data.message) errorMessage = error.response.data.message;
+          }
+        }
         // Message Error
         toast.update(toastId, {
           render: errorMessage,
@@ -101,7 +110,11 @@ export const LoginProvider = ({ children }: { children: JSX.Element }) => {
         router.push('/');
       } catch (error: any) {
         let errorMessage = error.message;
-        if (error.response.data.message) errorMessage = error.response.data.message;
+        if(error.response){
+          if(error.response.data){
+            if (error.response.data.message) errorMessage = error.response.data.message;
+          }
+        }
         // Message Error
         toast.update(toastId, {
           render: errorMessage,
