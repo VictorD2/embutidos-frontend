@@ -7,15 +7,15 @@ type Props = {
   children: ReactNode;
 };
 
-const UserLayout = ({ children }: Props) => {
+const AdminLayout = ({ children }: Props) => {
   return (
     <div className="w-full">
       <AppHeader />
-      <p>user</p>
+      <p>admin</p>
       <main className="w-full h-full">{children}</main>
       <AppFooter />
     </div>
   );
 };
 
-export default UserLayout;
+export default AdminLayout;

@@ -12,9 +12,10 @@ import GuestLayout from '@layout/guest.layout';
 import { AuthProvider } from '@contexts/auth.context';
 import favicon from '../../public/logo_prospark.jpg';
 import { ToastContainer } from 'react-toastify';
+import AdminLayout from '@layout/admin.layout';
 
 const rutasPrivadas = ['/dashboard'];
-const rutasPublicas = ['/', '/login'];
+const rutasPublicas = ['/login'];
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
   const router = useRouter();
@@ -58,7 +59,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
         {/* eslint-disable-next-line @next/next/no-script-in-head */}
         <Head>
           <title>
-            {router.route === '/' ? 'PAGINA - LOGIN' : router.route.replace('/', 'PAGINA - ').toUpperCase()}
+            {router.route === '/' ? 'PAGINA - INICIO' : router.route.replace('/', 'PAGINA - ').toUpperCase()}
           </title>
           <meta name="viewport" content="initial-scale=1, width=device-width" />
           <link rel="icon" type="image/png" href={favicon.src}></link>
@@ -72,11 +73,13 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
                 <Component {...pageProps} />
               </GuestLayout>
             ) : validarRutaPrivada() ? (
+              <AdminLayout>
+                <Component {...pageProps} />
+              </AdminLayout>
+            ) : (
               <UserLayout>
                 <Component {...pageProps} />
               </UserLayout>
-            ) : (
-              <Component {...pageProps} />
             )}
           </>
         ) : (

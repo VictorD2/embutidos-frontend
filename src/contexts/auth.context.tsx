@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import { IAuthContext, initialStateUser, IUser } from '@interfaces/auth.interface';
 import jwtDecode from 'jwt-decode';
 
-const rutesPublicas = ['/login', '/'];
+const rutesPublicas = ['/login', '/', '/catalogo', '/nosotros'];
 
 export const AuthContext = React.createContext({} as IAuthContext);
 
@@ -43,6 +43,7 @@ export const AuthProvider = ({ children }: { children: JSX.Element }) => {
     cargarUsuario();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
   return (
     <AuthContext.Provider
       value={{
