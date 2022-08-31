@@ -18,6 +18,11 @@ export interface IProducto {
   photo: string;
 }
 
+export interface GetProductsResponse {
+  success: string;
+  products: IProducto[];
+}
+
 export const initialStateIProducto: IProducto = {
   name: '',
   price: 0,

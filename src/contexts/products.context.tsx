@@ -11,7 +11,9 @@ export const ProductoProvider = ({ children }: { children: JSX.Element }) => {
   const [photoModal, setPhotoModal] = useState<string>('');
 
   const getProducts = async () => {
-    setProductos(ClsProducto.productos);
+    try {
+      setProductos(await ClsProducto.getProducts());
+    } catch (error) {}
   };
 
   const filter = (name: string) => {
