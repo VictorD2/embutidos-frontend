@@ -31,6 +31,7 @@ type AppInputTextProps = {
   passwordEyeColor?: string;
   helpTextHeight?: string;
   required?: boolean;
+  padding?: string;
 };
 export const AppInputText = ({
   passwordEye = false,
@@ -47,6 +48,7 @@ export const AppInputText = ({
   type = 'text',
   autoComplete = 'off',
   onChange,
+  padding = 'px-3',
   onFocus,
   helpText,
   helpColor = 'text-red-500',
@@ -99,7 +101,8 @@ export const AppInputText = ({
               height,
               bgPlaceholder,
               helpText ? helpBorder : borderColor,
-              'appearance-none block w-full px-3 h-10 items-center rounded-md focus:outline-none sm:text-sm',
+              padding,
+              'appearance-none block w-full items-center rounded-md focus:outline-none sm:text-sm',
               className
             )}
           />

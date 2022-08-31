@@ -1,0 +1,25 @@
+{
+  "productos": [
+    {
+      "id": 23901,
+      "name": "Salchicha segoviana 240 gr",
+      "price": 1.5,
+      "quantity": 4,
+      "photo": "https://www.trujillomarket.pe/Assets/images/uploads/pro_1a93d807d5c668b8a7363be4d03bb511.jpg"
+    },
+    {
+      "id": 23392,
+      "name": "Chorizo precocido 240 gr",
+      "price": 3.73,
+      "quantity": 2,
+      "photo": "https://images.rappi.pe/products/18101-1540506458.png"
+    },
+    {
+      "id": 92849,
+      "name": "Jamón de pollo 39 gr",
+      "price": 4.6,
+      "quantity": 0,
+      "photo": "https://lacanastabrava.com/wp-content/uploads/2021/03/JAMON-PAVITA-LA-SEG.jpg"
+    }
+  ]
+}

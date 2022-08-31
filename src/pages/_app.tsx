@@ -59,7 +59,9 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
         {/* eslint-disable-next-line @next/next/no-script-in-head */}
         <Head>
           <title>
-            {router.route === '/' ? 'PAGINA - INICIO' : router.route.replace('/', 'PAGINA - ').toUpperCase()}
+            {router.route === '/'
+              ? 'PAGINA - INICIO'
+              : router.route.replace('/', 'PAGINA - ').toUpperCase().replace('DASHBOARD/', '')}
           </title>
           <meta name="viewport" content="initial-scale=1, width=device-width" />
           <link rel="icon" type="image/png" href={favicon.src}></link>

@@ -18,7 +18,7 @@ a {
   box-sizing: border-box;
 }
 
-@layer base {
+/* @layer base {
   @font-face {
     font-family: 'App-font';
     font-weight: 200;
@@ -59,7 +59,7 @@ a {
     font-weight: 900;
     src: url('/fonts/Poppins-Black.ttf');
   }
-}
+} */
 
 @layer utilities {
   .highlight-none {
@@ -88,7 +88,7 @@ a {
   @apply absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-red-100 transform translate-x-1/2 -translate-y-1/2 bg-red-600 rounded-full;
 }
 
-body {
+/* body {
   @apply text-base;
   font-family: 'App-font';
   top: 0px !important;
@@ -150,17 +150,17 @@ hr {
   @apply text-sm;
   letter-spacing: 0.25px;
   font-family: 'App-font';
-}
+} */
 
 .button {
   letter-spacing: 0.0892857143em;
-  font-family: 'App-font';
+  /* font-family: 'App-font'; */
 }
 
 .caption {
   font-size: 0.625rem;
   letter-spacing: 0.4px;
-  font-family: 'App-font';
+  /* font-family: 'App-font'; */
 }
 
 @media (min-width: 1024px) {

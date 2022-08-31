@@ -1,0 +1,49 @@
+{
+  "clientes": [
+    {
+      "id": 1,
+      "name": "Alex Ramirez Macharé",
+      "address": "Av. Ejemplo",
+      "ruc": "12345678910",
+      "comercialName": "Alex Comercial nombre",
+      "phone": "990978736",
+      "email": "alex@gmail.com"
+    },
+    {
+      "id": 2,
+      "name": "Lucas Martinez Iturrizaga",
+      "address": "Av. Ejemplo",
+      "ruc": "12345678910",
+      "comercialName": "Lucas Comercial nombre",
+      "phone": "990978736",
+      "email": "lucas@gmail.com"
+    },
+    {
+      "id": 3,
+      "name": "Luis Perez Soplín",
+      "address": "Av. Ejemplo",
+      "ruc": "12345678910",
+      "comercialName": "Luis Comercial nombre",
+      "phone": "990978736",
+      "email": "luis@gmail.com"
+    },
+    {
+      "id": 4,
+      "name": "Marcos Tapia Palacios",
+      "address": "Av. Ejemplo",
+      "ruc": "12345678910",
+      "comercialName": "Marcos Comercial nombre",
+      "phone": "990978736",
+      "email": "marcos@gmail.com"
+    },
+    {
+      "id": 5,
+      "name": "Alejandro Linares Rodrigues",
+      "address": "Av. Ejemplo",
+      "ruc": "12345678910",
+      "comercialName": "Alejandro Comercial nombre",
+      "phone": "990978736",
+      "email": "alejandro@gmail.com"
+    }
+  ]
+}

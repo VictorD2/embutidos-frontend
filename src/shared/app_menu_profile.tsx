@@ -3,8 +3,6 @@ import { Menu, Transition } from '@headlessui/react';
 import { Fragment } from 'react';
 import { LogoutIcon, UserCircleIcon } from '@heroicons/react/outline';
 import { useRouter } from 'next/router';
-import foto from '../../../public/images/profile.png';
-import { API } from '@config/config';
 import useAuth from '@hooks/useAuth';
 import ClsAuth from '@class/ClsAuth';
 const AppMenuProfile = () => {
@@ -12,7 +10,7 @@ const AppMenuProfile = () => {
   const router = useRouter();
   const logOut = () => {
     ClsAuth.logOut();
-    router.push('/');
+    router.push('/login');
   };
 
   return (

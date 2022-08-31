@@ -25,7 +25,7 @@ const AdminLayout = ({ children }: Props) => {
       <div className="app-col lg:pl-64 md:pl-24 h-screen">
         <AppHeaderUser openDrawer={setDrawer} />
         <div className="flex-grow bg-background">
-          <main className="h-full px-10 py-6">{children}</main>
+          <main className="h-full lg:px-10 md:px-10 px-2 py-6">{children}</main>
         </div>
       </div>
     </div>

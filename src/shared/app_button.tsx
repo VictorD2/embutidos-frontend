@@ -14,6 +14,7 @@ type AppButtonProps = {
   type?: 'button' | 'submit' | 'reset' | undefined;
   className?: string;
   loading?: boolean;
+  padding?: string;
 };
 
 export const AppButton = ({
@@ -26,6 +27,7 @@ export const AppButton = ({
   bgColor = 'bg-primary',
   border = 'border border-primary',
   height = 'h-10',
+  padding = 'px-4 py-2',
   type = 'button',
   loading = true,
 }: AppButtonProps) => {
@@ -46,7 +48,8 @@ export const AppButton = ({
           variant == 'contained' ? bgColor : '',
           variant == 'contained' ? 'hover:opacity-90' : 'hover:' + bgColor + ' hover:bg-opacity-25 hover:' + textColor,
           height,
-          'rounded-md w-full flex justify-center items-center px-4 py-2 button capitalize'
+          padding,
+          'rounded-md w-full flex justify-center items-center button capitalize'
         )}
       >
         {loading ? (
