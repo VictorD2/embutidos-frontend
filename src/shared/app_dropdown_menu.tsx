@@ -1,3 +1,5 @@
+/* eslint-disable arrow-parens */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Menu, Transition } from '@headlessui/react';
 import { ChevronDownIcon } from '@heroicons/react/outline';
 import React, { ElementType, Fragment } from 'react';
@@ -38,16 +40,15 @@ const AppDropdown = ({ name, child, as }: AppDropdownTypes) => {
       >
         <Menu.Items className="absolute ltr:right-0 rtl:left-0 w-56 mt-2 origin-top-right bg-layout divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none z-50">
           <div className="px-1 py-1 ">
-            {child.map((item, i) => {
+            {child.map(item => {
               return (
-                <Menu.Item key={i}>
+                <Menu.Item key={item}>
                   {({ active }) => (
                     <button
-                      className={
-                        (active || router.pathname.includes(item.link) ? 'text-white' : 'text-gray-400') +
-                        ' group flex rounded-md items-center w-full px-2 py-2 text-sm uppercase font-bold hover:text-white transition-all duration-700'
-                      }
-                      onClick={() => {}}
+                      type="button"
+                      className={`${
+                        active || router.pathname.includes(item.link) ? 'text-white' : 'text-gray-400'
+                      } group flex rounded-md items-center w-full px-2 py-2 text-sm uppercase font-bold hover:text-white transition-all duration-700`}
                     >
                       <Link href={item.link}>{item.name}</Link>
                     </button>

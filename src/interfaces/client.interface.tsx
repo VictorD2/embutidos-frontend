@@ -1,12 +1,5 @@
 import { Dispatch } from 'react';
 
-export interface IClientContext {
-  clients: IClient[];
-  setClients: Dispatch<IClient[]>;
-  client: IClient;
-  setClient: Dispatch<IClient>;
-}
-
 export interface IClient {
   id?: number;
   email: string;
@@ -14,6 +7,12 @@ export interface IClient {
   address: string;
   ruc: string;
   phone: string;
+}
+export interface IClientContext {
+  clients: IClient[];
+  setClients: Dispatch<IClient[]>;
+  client: IClient;
+  setClient: Dispatch<IClient>;
 }
 
 export const initialStateIClient: IClient = {

@@ -1,6 +1,10 @@
+/* eslint-disable arrow-parens */
+/* eslint-disable @typescript-eslint/ban-types */
+/* eslint-disable react/require-default-props */
 import React from 'react';
-import { AppMenuItem } from './app_menu_item';
 import { DuplicateIcon, ShoppingCartIcon } from '@heroicons/react/outline';
+import AppMenuItem from '@shared/app_menu_item';
+
 type AppSidebarProps = {
   setDrawer?: Function;
 };
@@ -43,6 +47,7 @@ const AppSidebar = ({ setDrawer }: AppSidebarProps) => {
           <div className="overflow-hidden hover:lg:overflow-y-auto hover:lg:scrollbar-thumb-rounded-md hover:lg:scrollbar-thin hover:lg:scrollbar-thumb-primary hover:lg:scrollbar-track-secondary overflow-y-auto scrollbar-thumb-primary scrollbar-thin">
             {navigation.map(item => {
               return (
+                // eslint-disable-next-line max-len
                 <AppMenuItem setDrawer={setDrawer} key={item.slug} slug={item.slug} Icon={item.icon} link={item.link} />
               );
             })}

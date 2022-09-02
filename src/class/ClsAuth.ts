@@ -9,12 +9,14 @@ class ClsAuth {
     localStorage.setItem('token', data.token);
     return data.user;
   }
+
   static async register(register: IRegister): Promise<IUser> {
     const res = await registerService(register);
     const { data } = res;
     localStorage.setItem('token', data.token);
     return data.user;
   }
+
   static logOut() {
     localStorage.removeItem('token');
   }

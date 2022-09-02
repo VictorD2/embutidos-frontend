@@ -1,24 +1,21 @@
-// Types
+/* eslint-disable max-len */
+/* eslint-disable @typescript-eslint/no-empty-function */
+/* eslint-disable arrow-parens */
+/* eslint-disable object-curly-newline */
+import React from 'react';
+
 type AppInputColorProps = {
   name: string;
   value: string;
   label?: string;
   placeholder?: string;
-  onChange: Function;
-  onFocus?: Function;
+  onChange?: React.ChangeEventHandler<HTMLInputElement>;
+  onFocus?: React.FocusEventHandler<HTMLInputElement>;
   error?: string;
 };
 
-export const AppInputColor = ({
-  name,
-  value,
-  label,
-  placeholder,
-  onChange,
-  onFocus,
-  error = '',
-}: AppInputColorProps) => {
-  const classNames = (...classes: any): string => {
+const AppInputColor = ({ name, value, label, placeholder, onChange, onFocus, error }: AppInputColorProps) => {
+  const classNames = (...classes: string[]): string => {
     return classes.filter(Boolean).join(' ');
   };
 
@@ -39,23 +36,33 @@ export const AppInputColor = ({
           name={name}
           value={value}
           placeholder={placeholder}
-          type={'color'}
-          autoComplete={'new-password'}
+          type="color"
+          autoComplete="new-password"
           required
-          onChange={e => onChange(e)}
+          onChange={onChange}
           onFocus={e => {
             if (onFocus) onFocus(e);
           }}
           className={classNames(
             'bg-background appearance-none block w-full placeholder-gray-400 focus:outline-none',
             'border-2 focus:border-secondary sm:text-sm',
+            // eslint-disable-next-line comma-dangle
             error ? 'border-red-500' : 'border-transparent'
           )}
         />
-        {/* <div className="rounded-full h-8 w-8 ring-2 ring-secondary" style={{ backgroundColor: value }} /> */}
       </div>
       {/* Error message */}
       {error && <div className="p text-xs text-red-500 mt-1">{error}</div>}
     </div>
   );
 };
+
+AppInputColor.defaultProps = {
+  label: '',
+  placeholder: '',
+  onChange: () => {},
+  onFocus: Function,
+  error: '',
+};
+
+export default AppInputColor;

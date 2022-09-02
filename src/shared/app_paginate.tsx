@@ -1,5 +1,7 @@
+/* eslint-disable arrow-parens */
+/* eslint-disable react/jsx-no-useless-fragment */
+/* eslint-disable @typescript-eslint/ban-types */
 import React, { useEffect, useState } from 'react';
-
 // Icons
 import {
   ChevronDoubleLeftIcon,
@@ -7,7 +9,7 @@ import {
   ChevronLeftIcon,
   ChevronRightIcon,
 } from '@heroicons/react/outline';
-import { AppNumberIcon } from './app_number_icon';
+import AppNumberIcon from '@shared/app_number_icon';
 
 // Types
 type AppPaginateProps = {
@@ -18,35 +20,35 @@ type AppPaginateProps = {
   className?: string;
 };
 
-export const AppPaginate = ({ count, page, limit, changePage, className = '' }: AppPaginateProps) => {
+// eslint-disable-next-line object-curly-newline
+export const AppPaginate = ({ count, page, limit, changePage, className }: AppPaginateProps) => {
   const [paginas, setPaginas] = useState<number[]>([]);
-  let pages = Math.ceil(count / limit);
+  const pages = Math.ceil(count / limit);
 
-  const classNames = (...classes: any): string => {
+  const classNames = (...classes: string[]): string => {
     return classes.filter(Boolean).join(' ');
   };
 
   const setPaginasConfig = () => {
     const paginasLista: number[] = [];
-    for (let index = 0; index < pages; index++) paginasLista.push(index + 1);
+    for (let index = 0; index < pages; index += 1) paginasLista.push(index + 1);
     setPaginas(paginasLista);
   };
 
   useEffect(() => {
     setPaginasConfig();
     return () => setPaginas([]);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page, count, limit]);
 
   return (
     <>
       {count > 0 && (
-        <div className={classNames(className, 'flex flex-row justify-between items-center py-2 caption')}>
+        <div className={classNames(`${className}`, 'flex flex-row justify-between items-center py-2 caption')}>
           <div className="text-sm flex flex-row items-center justify-center gap-2">
             <span>Page</span>
-            <AppNumberIcon number={page + ''} />
+            <AppNumberIcon number={`${page}`} />
             <span>of</span>
-            <AppNumberIcon number={pages + ''} />
+            <AppNumberIcon number={`${pages}`} />
           </div>
           <div className="flex flex-row items-center">
             <ChevronDoubleLeftIcon
@@ -62,12 +64,12 @@ export const AppPaginate = ({ count, page, limit, changePage, className = '' }: 
               }}
             />
 
-            {paginas.map((item, i) => {
+            {paginas.map(item => {
               if (item > 5) return <></>;
               return (
                 // eslint-disable-next-line
                 <div
-                  key={i + 595950}
+                  key={item}
                   onClick={() => {
                     if (page === item) return;
                     changePage(item);
@@ -76,7 +78,7 @@ export const AppPaginate = ({ count, page, limit, changePage, className = '' }: 
                     page === item ? 'bg-secondary text-white' : 'text-gray-900 border border-gray-400'
                   } `}
                 >
-                  <AppNumberIcon font="text-tiny" className="text-tiny w-1 p-1 ltr:pr-2 rtl:pl-2" number={item + ''} />
+                  <AppNumberIcon font="text-tiny" className="text-tiny w-1 p-1 ltr:pr-2 rtl:pl-2" number={`${item}`} />
                 </div>
               );
             })}
@@ -99,3 +101,9 @@ export const AppPaginate = ({ count, page, limit, changePage, className = '' }: 
     </>
   );
 };
+
+AppPaginate.defaultProps = {
+  className: '',
+};
+
+export default AppPaginate;

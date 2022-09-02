@@ -7,7 +7,7 @@ module.exports = {
     'eslint:recommended',
     'plugin:react/recommended',
     'plugin:prettier/recommended',
-    'plugin:typescript-sort-keys/recommended',
+    // 'plugin:typescript-sort-keys/recommended',
     'plugin:import/errors',
     'plugin:import/warnings',
     'plugin:import/typescript',

@@ -1,7 +1,7 @@
+/* eslint-disable arrow-parens */
 import React, { useEffect, useState } from 'react';
-
 import { IPedidosContext, initialStateIPedido, IPedido } from '@interfaces/pedidos.interface';
-import { initialStateIProducto, IProducto } from '@interfaces/producto.interface';
+import { IProducto } from '@interfaces/producto.interface';
 
 export const PedidoContext = React.createContext({} as IPedidosContext);
 
@@ -10,20 +10,12 @@ export const PedidoProvider = ({ children }: { children: JSX.Element }) => {
   const [pedido, setPedido] = useState<IPedido>(initialStateIPedido);
   const [productosPedido, setProductosPedido] = useState<IProducto[]>([]);
   const [total, setTotal] = useState<number>(0);
-  const [productoEdit, setProductoEdit] = useState<IProducto>(initialStateIProducto);
 
   const getTotal = (): void => {
     let totalPrice = 0;
-    productosPedido.forEach(item => (totalPrice += item.price));
+    // eslint-disable-next-line no-return-assign
+    productosPedido.forEach(item => (totalPrice += item.price * item.quantity));
     setTotal(totalPrice);
-  };
-
-  const buscarProducto = (id: number) => {
-    for (let i = 0; i < productosPedido.length; i++) {
-      const element = productosPedido[i];
-      if (element.id === id) return i;
-    }
-    return -1;
   };
 
   useEffect(() => {
@@ -35,10 +27,8 @@ export const PedidoProvider = ({ children }: { children: JSX.Element }) => {
 
   return (
     <PedidoContext.Provider
+      // eslint-disable-next-line react/jsx-no-constructed-context-values
       value={{
-        productoEdit,
-        setProductoEdit,
-        buscarProducto,
         total,
         productosPedido,
         setProductosPedido,
@@ -50,3 +40,9 @@ export const PedidoProvider = ({ children }: { children: JSX.Element }) => {
     </PedidoContext.Provider>
   );
 };
+
+export function usePedido() {
+  const context = React.useContext(PedidoContext);
+  if (!context) throw new Error('usePedido debe estar dentro del proveedor usuario context');
+  return context;
+}

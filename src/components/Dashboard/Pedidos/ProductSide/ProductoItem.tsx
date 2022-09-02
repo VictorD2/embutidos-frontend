@@ -1,12 +1,19 @@
-import { IProducto } from '@interfaces/producto.interface';
-import { AppButton } from '@shared/app_button';
-import { AppText } from '@shared/app_text';
-import React, { useState } from 'react';
-import { PlusCircleIcon } from '@heroicons/react/outline';
-import { AppInputText } from '@shared/app_input_text';
-import usePedido from '@hooks/usePedido';
-import useProducto from '@hooks/useProducto';
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable comma-dangle */
+/* eslint-disable arrow-parens */
+import React from 'react';
 import { toast } from 'react-toastify';
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
+import { PlusCircleIcon } from '@heroicons/react/outline';
+import { IProducto } from '@interfaces/producto.interface';
+import AppButton from '@shared/app_button';
+import AppText from '@shared/app_text';
+import AppInputText from '@shared/app_input_text';
+import { usePedido } from '@contexts/pedidos.context';
+import { useProducto } from '@contexts/products.context';
+import { productAddSchema } from '@src/schemas/pedido.schema';
 
 type ProductoItemProps = {
   producto: IProducto;
@@ -15,46 +22,53 @@ type InputEvent = React.ChangeEvent<HTMLInputElement>;
 type ClickEvent = React.MouseEvent<HTMLDivElement>;
 
 const ProductoItem = ({ producto }: ProductoItemProps) => {
-  const [quantity, setQuantity] = useState<string>(producto.quantity + '');
-
   const { setPhotoModal, setOpenModal } = useProducto();
-  const { productosPedido, setProductosPedido, buscarProducto } = usePedido();
+  const { productosPedido, setProductosPedido } = usePedido();
+
+  const formikQuantity = useFormik({
+    validationSchema: Yup.object(productAddSchema),
+    initialValues: { quantity: producto.quantity },
+    initialErrors: { quantity: '' },
+    onSubmit: formValues => {
+      let finded = true;
+      setProductosPedido(
+        productosPedido.map(item => {
+          if (item.id === producto.id) {
+            finded = false;
+            return { ...item, quantity: item.quantity + formValues.quantity };
+          }
+          return item;
+        })
+      );
+      if (finded) {
+        const newProduct: IProducto = {
+          id: producto.id,
+          name: producto.name,
+          photo: producto.photo,
+          price: producto.price,
+          quantity: formValues.quantity,
+        };
+        setProductosPedido([...productosPedido, newProduct]);
+      }
+    },
+  });
 
   const handleChangeQuantity = (e: InputEvent) => {
-    setQuantity(e.target.value);
+    formikQuantity.setFieldValue('quantity', parseInt(`${e.target.value}`, 10));
   };
 
+  // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
   const handleClickImage = (e: ClickEvent) => {
     setPhotoModal(producto.photo);
     setOpenModal(true);
   };
 
+  // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
   const handleClickButton = (e: React.MouseEvent<HTMLButtonElement>) => {
-    if (parseInt(quantity) === 0) {
-      toast.warning('Ingrese una cantidad', {
-        autoClose: 2000,
-        closeButton: true,
-        draggable: true,
-      });
-      return;
+    if (formikQuantity.values.quantity <= 0) {
+      return toast.warning('Ingrese una cantidad', { autoClose: 2000, closeButton: true, draggable: true });
     }
-    const indice = buscarProducto(parseInt(`${producto.id}`));
-    const productosCopy = [...productosPedido];
-    if (indice !== -1) {
-      productosCopy[indice].quantity += parseInt(quantity);
-      console.log(productosCopy[indice]);
-      productosCopy[indice].price = producto.price * productosCopy[indice].quantity;
-      setProductosPedido(productosCopy);
-    } else {
-      const newProduct: IProducto = {
-        id: producto.id,
-        name: producto.name,
-        photo: producto.photo,
-        price: producto.price * parseInt(quantity),
-        quantity: parseInt(quantity),
-      };
-      setProductosPedido([...productosPedido, newProduct]);
-    }
+    return formikQuantity.submitForm();
   };
 
   return (
@@ -75,18 +89,21 @@ const ProductoItem = ({ producto }: ProductoItemProps) => {
               fontSize="text-md"
               textColor="text-gray-800 hover:text-secondary transition-all duration-500"
             >
-              {producto.id} - {producto.name}
+              {`${producto.id} - ${producto.name}`}
             </AppText>
           </div>
           {/* Quantity */}
           <div className="h-3/6 w-1/3 flex gap-4 pt-2 justify-center ">
             <AppInputText
-              className="border-gray-400 border-2 mt-1 text-center"
+              className="border-gray-400 border-2 mt-1 text-center outline-none appearance-none"
               width="lg:w-28 md:w-12 w-12"
               height="h-8"
               padding="px-1"
-              value={quantity + ''}
-              name={'quantity' + producto.id}
+              type="number"
+              helpColor="hidden"
+              helpText={formikQuantity.errors.quantity}
+              value={`${formikQuantity.values.quantity}`}
+              name={`quantity${producto.id}`}
               label="Cantidad:"
               labelWidth="lg:block hidden"
               direction="flex lg:flex-row md:flex-col lg:gap-2"
@@ -101,20 +118,20 @@ const ProductoItem = ({ producto }: ProductoItemProps) => {
               fontSize="text-md"
               textColor="text-gray-500 hover:text-secondary transition-all duration-500"
             >
-              S/. {producto.price}
+              {`S/.${producto.price}`}
             </AppText>
           </div>
           {/* Button Add */}
           <div className="h-3/6 w-1/3 flex justify-center items-center">
             <AppButton
-              bgColor={`${parseInt(quantity) === 0 ? 'bg-green-500 opacity-70' : 'bg-green-600'}`}
-              className={`mb-4`}
+              bgColor={`${formikQuantity.values.quantity <= 0 ? 'bg-green-500 opacity-70' : 'bg-green-600'}`}
+              className="mb-4"
               height="w-full rounded-2xl flex gap-1 justify-center items-center h-8"
               onClick={handleClickButton}
               // disabled={parseInt(quantity) === 0}
             >
               <span className="lg:block md:hidden hidden">Agregar</span>
-              <PlusCircleIcon className="w-[25px]"></PlusCircleIcon>
+              <PlusCircleIcon className="w-[25px]" />
             </AppButton>
           </div>
         </div>

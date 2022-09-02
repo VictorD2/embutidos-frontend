@@ -1,5 +1,12 @@
 import { Dispatch } from 'react';
 
+export interface IProducto {
+  id?: number;
+  name: string;
+  price: number;
+  quantity: number;
+  photo: string;
+}
 export interface IProductosContext {
   productos: IProducto[];
   setProductos: Dispatch<IProducto[]>;
@@ -7,15 +14,8 @@ export interface IProductosContext {
   setOpenModal: Dispatch<boolean>;
   photoModal: string;
   setPhotoModal: Dispatch<string>;
+  // eslint-disable-next-line no-unused-vars
   filter: (text: string) => void;
-}
-
-export interface IProducto {
-  id?: number;
-  name: string;
-  price: number;
-  quantity: number;
-  photo: string;
 }
 
 export interface GetProductsResponse {

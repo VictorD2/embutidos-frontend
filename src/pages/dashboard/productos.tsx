@@ -1,6 +1,6 @@
-import ProductosPage from '@components/Dashboard/Productos/ProductosPage';
-import { NextPage } from 'next';
 import React from 'react';
+import { NextPage } from 'next';
+import ProductosPage from '@components/Dashboard/Productos/ProductosPage';
 
 const Productos: NextPage = () => {
   return <ProductosPage />;

@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable no-unused-vars */
 export const getErrorResponse = (error: any): string => {
   let errorMessage: string = error.message;
   if (error.response) {
@@ -7,4 +10,5 @@ export const getErrorResponse = (error: any): string => {
   }
   return errorMessage;
 };
+// eslint-disable-next-line @typescript-eslint/no-empty-function
 export const getErrorResponse2 = (error: any) => {};

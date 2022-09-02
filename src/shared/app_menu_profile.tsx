@@ -1,10 +1,11 @@
 import { ChevronDownIcon } from '@heroicons/react/solid';
 import { Menu, Transition } from '@headlessui/react';
-import { Fragment } from 'react';
+import React, { Fragment } from 'react';
 import { LogoutIcon, UserCircleIcon } from '@heroicons/react/outline';
 import { useRouter } from 'next/router';
-import useAuth from '@hooks/useAuth';
+import { useAuth } from '@contexts/auth.context';
 import ClsAuth from '@class/ClsAuth';
+
 const AppMenuProfile = () => {
   const { user } = useAuth();
   const router = useRouter();
@@ -19,12 +20,9 @@ const AppMenuProfile = () => {
         <Menu.Button>
           <div className="app-row justify-between items-center">
             {/* <img className="inline-block h-12 w-12 rounded-full ring-2 ring-secondary" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="" /> */}
-            {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               className="inline-block h-12 w-12 rounded-full ring-2 ring-secondary"
-              src={
-                'https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8dXNlcnxlbnwwfHwwfHw%3D&w=1000&q=80'
-              }
+              src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8dXNlcnxlbnwwfHwwfHw%3D&w=1000&q=80"
               alt=""
             />
             <div className="hidden md:block md:ml-2 truncate" style={{ maxWidth: '7rem' }}>
@@ -48,11 +46,10 @@ const AppMenuProfile = () => {
             <Menu.Item>
               {({ active }) => (
                 <button
-                  className={
-                    (active || router.pathname == '/profile' ? 'bg-secondary text-white' : 'text-gray-900') +
-                    ' group flex rounded-md items-center w-full px-2 py-2 text-sm'
-                  }
-                  onClick={() => {}}
+                  type="button"
+                  className={`${
+                    active || router.pathname === '/profile' ? 'bg-secondary text-white' : 'text-gray-900'
+                  } group flex rounded-md items-center w-full px-2 py-2 text-sm`}
                 >
                   <UserCircleIcon className="w-6 h-6 mr-6" />
                   Profile
@@ -62,10 +59,10 @@ const AppMenuProfile = () => {
             <Menu.Item>
               {({ active }) => (
                 <button
-                  className={
-                    (active ? 'bg-secondary text-white' : 'text-gray-900') +
-                    ' group flex rounded-md items-center w-full px-2 py-2 text-sm'
-                  }
+                  type="button"
+                  className={`${
+                    active ? 'bg-secondary text-white' : 'text-gray-900'
+                  } group flex rounded-md items-center w-full px-2 py-2 text-sm`}
                   onClick={logOut}
                 >
                   <LogoutIcon className="w-6 h-6 mr-6" />

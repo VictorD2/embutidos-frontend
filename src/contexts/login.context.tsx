@@ -1,9 +1,11 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable arrow-parens */
 import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import { toast } from 'react-toastify';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import useAuth from '@hooks/useAuth';
+import { useAuth } from '@contexts/auth.context';
 import { ILoginContext, initialStateLogin, initialStateRegister } from '@interfaces/login.interface';
 import { IUser } from '@interfaces/auth.interface';
 import { getErrorResponse } from '@utils/helpers';
@@ -29,7 +31,7 @@ export const LoginProvider = ({ children }: { children: JSX.Element }) => {
     onSubmit: async formValue => {
       setLoading(true);
       // Message Please Wait...
-      let toastId = toast.loading('Por favor espere...');
+      const toastId = toast.loading('Por favor espere...');
       try {
         const user: IUser = await ClsAuth.login(formValue);
         // Message Successs
@@ -42,8 +44,8 @@ export const LoginProvider = ({ children }: { children: JSX.Element }) => {
           draggable: true,
         });
         setUser(user);
-        if ((user.rol.name = 'Administrador')) return router.push('/dashboard/pedidos');
-        router.push('/');
+        if (user.rol.name === 'Administrador') return router.push('/dashboard/pedidos');
+        return router.push('/');
       } catch (error: any) {
         // Message Error
         toast.update(toastId, {
@@ -55,7 +57,7 @@ export const LoginProvider = ({ children }: { children: JSX.Element }) => {
           draggable: true,
         });
       }
-      setLoading(false);
+      return setLoading(false);
     },
   });
 
@@ -68,7 +70,7 @@ export const LoginProvider = ({ children }: { children: JSX.Element }) => {
     onSubmit: async formValue => {
       setLoading(true);
       // Message Please Wait...
-      let toastId = toast.loading('Por favor espere...');
+      const toastId = toast.loading('Por favor espere...');
       try {
         const user: IUser = await ClsAuth.register(formValue);
         setUser(user);
@@ -99,6 +101,7 @@ export const LoginProvider = ({ children }: { children: JSX.Element }) => {
 
   return (
     <LoginContext.Provider
+      // eslint-disable-next-line react/jsx-no-constructed-context-values
       value={{
         isLogin,
         setIsLogin,
@@ -112,3 +115,9 @@ export const LoginProvider = ({ children }: { children: JSX.Element }) => {
     </LoginContext.Provider>
   );
 };
+
+export function useLogin() {
+  const context = React.useContext(LoginContext);
+  if (!context) throw new Error('useLogin debe estar dentro del proveedor usuario context');
+  return context;
+}
