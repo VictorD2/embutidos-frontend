@@ -1,7 +1,6 @@
-import { Dispatch, Fragment, ReactNode, SetStateAction } from 'react';
+/* eslint-disable object-curly-newline */
+import React, { Dispatch, Fragment, ReactNode, SetStateAction } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
-
-// Icons
 import { XIcon } from '@heroicons/react/outline';
 
 // Types
@@ -12,7 +11,7 @@ type AppDrawerProps = {
   bgColor?: string;
 };
 
-export const AppDrawer = ({ children, open, setOpen, bgColor = 'bg-secondary' }: AppDrawerProps) => {
+const AppDrawer = ({ children, open, setOpen, bgColor }: AppDrawerProps) => {
   return (
     <Transition.Root show={open} as={Fragment}>
       <Dialog as="div" className="fixed inset-0 flex z-50 md:hidden" onClose={setOpen}>
@@ -36,7 +35,7 @@ export const AppDrawer = ({ children, open, setOpen, bgColor = 'bg-secondary' }:
           leaveFrom="translate-x-0"
           leaveTo="-translate-x-full"
         >
-          <div className={'relative flex-1 flex flex-col max-w-xs w-full'}>
+          <div className="relative flex-1 flex flex-col max-w-xs w-full">
             <Transition.Child
               as={Fragment}
               enter="ease-in-out duration-300"
@@ -69,3 +68,9 @@ export const AppDrawer = ({ children, open, setOpen, bgColor = 'bg-secondary' }:
     </Transition.Root>
   );
 };
+
+AppDrawer.defaultProps = {
+  bgColor: 'bg-secondary',
+};
+
+export default AppDrawer;

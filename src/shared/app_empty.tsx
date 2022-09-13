@@ -1,12 +1,12 @@
-import { InboxIcon } from '@heroicons/react/outline';
+import React, { InboxIcon } from '@heroicons/react/outline';
 
 type AppEmptyProps = {
   message?: string;
 };
 
-export const AppEmpty = ({ message = 'no records' }: AppEmptyProps) => {
+const AppEmpty = ({ message }: AppEmptyProps) => {
   return (
-    <div className="flex flex-row justify-center items-center p-20 uppercase bg-white">
+    <div className="flex flex-row justify-center items-center p-20 uppercase">
       <div className="flex flex-col gap-4 justify-center items-center">
         <InboxIcon className="w-16" />
         <span>{message}</span>
@@ -14,3 +14,9 @@ export const AppEmpty = ({ message = 'no records' }: AppEmptyProps) => {
     </div>
   );
 };
+
+AppEmpty.defaultProps = {
+  message: 'no record',
+};
+
+export default AppEmpty;

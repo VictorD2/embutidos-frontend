@@ -1,8 +1,8 @@
-import { ReactNode, useState } from 'react';
+import React, { ReactNode, useState } from 'react';
 import 'react-toastify/dist/ReactToastify.css';
 import AppSidebar from '@shared/app_sidebar';
-import { AppDrawer } from '@shared/app_drawer';
-import { AppHeaderUser } from '@shared/app_header_admin';
+import AppDrawer from '@shared/app_drawer';
+import AppHeaderUser from '@shared/app_header_admin';
 
 type Props = {
   children: ReactNode;

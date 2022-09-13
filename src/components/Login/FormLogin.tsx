@@ -1,7 +1,7 @@
-import useLogin from '@hooks/useLogin';
-import { AppButton } from '@shared/app_button';
-import { AppInputText } from '@shared/app_input_text';
 import React from 'react';
+import AppButton from '@shared/app_button';
+import AppInputText from '@shared/app_input_text';
+import { useLogin } from '@contexts/login.context';
 
 type ChangeEvent = React.ChangeEvent<HTMLInputElement>;
 type FocusEvent = React.FocusEvent<HTMLInputElement>;
@@ -56,7 +56,7 @@ const FormLogin = () => {
         helpText={formikLogin.errors.password}
         value={formikLogin.values.password}
       />
-      <AppButton loading={!loading} disabled={loading} className="mt-5 rounded-xl" type="submit" onClick={() => {}}>
+      <AppButton loading={!loading} disabled={loading} className="mt-5 rounded-xl" type="submit">
         Entrar
       </AppButton>
     </form>

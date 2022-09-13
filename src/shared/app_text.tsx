@@ -1,4 +1,12 @@
-import { ReactNode } from 'react';
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable react/no-unstable-nested-components */
+/* eslint-disable comma-dangle */
+/* eslint-disable object-curly-newline */
+/* eslint-disable arrow-parens */
+/* eslint-disable react/react-in-jsx-scope */
+import React, { ReactNode } from 'react';
 
 // Types
 type AppTextProps = {
@@ -7,25 +15,15 @@ type AppTextProps = {
   bgColor?: string;
   fontSize?: string;
   children: ReactNode;
-  height?: string;
-  onClick?: Function;
+  onClick?: React.MouseEventHandler;
   className?: string;
   hover?: string;
   focus?: string;
 };
 
-export const AppText = ({
-  className = '',
-  children,
-  onClick,
-  as,
-  fontSize,
-  hover = '',
-  focus = '',
-  textColor = 'text-black',
-  bgColor,
-}: AppTextProps) => {
-  const classNames = (...classes: any): string => {
+// eslint-disable-next-line max-len
+const AppText = ({ textColor, bgColor, fontSize, className, hover, focus, children, onClick, as }: AppTextProps) => {
+  const classNames = (...classes: string[]): string => {
     return classes.filter(Boolean).join(' ');
   };
 
@@ -38,11 +36,18 @@ export const AppText = ({
   };
 
   const getClassName = (): string => {
-    return classNames(getHover(hover), getFocus(focus), fontSize, className, bgColor, textColor);
+    return classNames(
+      getHover(`${hover}`),
+      getFocus(`${focus}`),
+      `${fontSize}`,
+      `${className}`,
+      `${bgColor}`,
+      `${textColor}`
+    );
   };
 
   const Text = () => {
-    if (as === 'h1')
+    if (as === 'h1') {
       return (
         <h1
           className={getClassName()}
@@ -53,7 +58,8 @@ export const AppText = ({
           {children}
         </h1>
       );
-    if (as === 'h2')
+    }
+    if (as === 'h2') {
       return (
         <h2
           className={getClassName()}
@@ -64,7 +70,8 @@ export const AppText = ({
           {children}
         </h2>
       );
-    if (as === 'h3')
+    }
+    if (as === 'h3') {
       return (
         <h3
           className={getClassName()}
@@ -75,7 +82,8 @@ export const AppText = ({
           {children}
         </h3>
       );
-    if (as === 'h4')
+    }
+    if (as === 'h4') {
       return (
         <h4
           className={getClassName()}
@@ -86,7 +94,8 @@ export const AppText = ({
           {children}
         </h4>
       );
-    if (as === 'h5')
+    }
+    if (as === 'h5') {
       return (
         <h5
           className={getClassName()}
@@ -97,7 +106,8 @@ export const AppText = ({
           {children}
         </h5>
       );
-    if (as === 'h6')
+    }
+    if (as === 'h6') {
       return (
         <h6
           className={getClassName()}
@@ -108,7 +118,8 @@ export const AppText = ({
           {children}
         </h6>
       );
-    if (as === 'p')
+    }
+    if (as === 'p') {
       return (
         <p
           className={getClassName()}
@@ -119,6 +130,7 @@ export const AppText = ({
           {children}
         </p>
       );
+    }
     return (
       <span
         className={getClassName()}
@@ -133,3 +145,16 @@ export const AppText = ({
 
   return <Text />;
 };
+
+AppText.defaultProps = {
+  className: '',
+  hover: '',
+  focus: '',
+  bgColor: '',
+  fontSize: '',
+  textColor: 'text-black',
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  onClick: () => {},
+};
+
+export default AppText;

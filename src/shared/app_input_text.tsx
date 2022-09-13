@@ -1,6 +1,5 @@
-import { useState } from 'react';
-
-// Icons
+/* eslint-disable comma-dangle */
+import React, { useState } from 'react';
 import { EyeIcon, EyeOffIcon } from '@heroicons/react/outline';
 
 // Types
@@ -11,8 +10,8 @@ type AppInputTextProps = {
   placeholder?: string;
   type?: string;
   autoComplete?: string;
-  onChange: Function;
-  onFocus?: Function;
+  onChange?: React.ChangeEventHandler<HTMLInputElement>;
+  onFocus?: React.FocusEventHandler<HTMLInputElement>;
   helpText?: string;
   helpBorder?: string;
   helpColor?: string;
@@ -26,57 +25,54 @@ type AppInputTextProps = {
   width?: string;
   disabled?: boolean;
   classNameCaption?: string;
+  helpTextHeight?: string;
   labelWidth?: string;
   passwordEye?: boolean;
   passwordEyeColor?: string;
-  helpTextHeight?: string;
   required?: boolean;
   padding?: string;
 };
-export const AppInputText = ({
-  passwordEye = false,
-  required = false,
-  labelWidth = '',
-  classNameCaption = '',
-  disabled = false,
-  width = '',
-  direction = 'flex flex-col items-start',
+const AppInputText = ({
+  passwordEye,
+  required,
+  labelWidth,
+  classNameCaption,
+  disabled,
+  width,
+  direction,
   name,
   value,
   label,
   placeholder,
-  type = 'text',
-  autoComplete = 'off',
+  type,
+  autoComplete,
   onChange,
-  padding = 'px-3',
+  padding,
   onFocus,
   helpText,
-  helpColor = 'text-red-500',
-  helpBorder = 'border-red-500',
-  borderColor = '',
-  bgColor = 'bg-background',
-  bgPlaceholder = 'placeholder-gray-400',
-  labelColor = 'text-gray-700',
-  className = '',
-  height = 'h-10',
-  helpTextHeight = 'h-2',
-  passwordEyeColor = 'text-black',
+  helpColor,
+  helpBorder,
+  borderColor,
+  bgColor,
+  bgPlaceholder,
+  labelColor,
+  className,
+  height,
+  helpTextHeight,
+  passwordEyeColor,
 }: AppInputTextProps) => {
-  const classNames = (...classes: any): string => {
+  const classNames = (...classes: string[]): string => {
     return classes.filter(Boolean).join(' ');
   };
 
   const [eye, setEye] = useState<boolean>(false);
-  const [tipo, setTipo] = useState<string>(type);
+  const [tipo, setTipo] = useState<string>(`${type}`);
 
   return (
     <div className={`${direction} ${width}`}>
       {label && (
         <div className={`my-2 ${labelWidth}`}>
-          <label
-            htmlFor={name}
-            className={'block text-sm whitespace-nowrap relative font-medium  ' + labelColor + '  mt-1'}
-          >
+          <label htmlFor={name} className={`block text-sm whitespace-nowrap relative font-medium ${labelColor} mt-1`}>
             {label}
             {required && <span className="text-red-500 ml-2">*</span>}
           </label>
@@ -92,29 +88,31 @@ export const AppInputText = ({
             placeholder={placeholder}
             autoComplete={autoComplete}
             type={tipo ?? 'text'}
-            onChange={e => onChange(e)}
+            onChange={onChange}
+            // eslint-disable-next-line arrow-parens
             onFocus={e => {
               if (onFocus) onFocus(e);
             }}
             className={classNames(
-              bgColor,
-              height,
-              bgPlaceholder,
-              helpText ? helpBorder : borderColor,
-              padding,
+              `${bgColor}`,
+              `${height}`,
+              `${bgPlaceholder}`,
+              helpText ? `${helpBorder}` : `${borderColor}`,
+              `${padding}`,
+              disabled ? 'text-gray-400' : '',
               'appearance-none block w-full items-center rounded-md focus:outline-none sm:text-sm',
-              className
+              `${className}`
             )}
           />
           {passwordEye && (
-            <>
+            <div>
               {!eye ? (
                 <EyeIcon
                   onClick={() => {
                     setEye(true);
                     setTipo('text');
                   }}
-                  className={classNames('w-5 h-5 absolute top-[10px] right-[15px]', passwordEyeColor)}
+                  className={classNames('w-5 h-5 absolute top-[10px] right-[15px]', `${passwordEyeColor}`)}
                   // style={{ top: '10px', right: '15px' }}
                 />
               ) : (
@@ -123,17 +121,51 @@ export const AppInputText = ({
                     setEye(false);
                     setTipo('password');
                   }}
-                  className={classNames('w-5 h-5 absolute top-[10px] right-[15px]', passwordEyeColor)}
+                  className={classNames('w-5 h-5 absolute top-[10px] right-[15px]', `${passwordEyeColor}`)}
                   // style={{ top: '10px', right: '15px' }}
                 />
               )}
-            </>
+            </div>
           )}
         </div>
-        {helpText !== undefined && (
-          <div className={classNames(helpColor, 'caption mt-1', helpTextHeight, classNameCaption)}>{helpText}</div>
+        {helpText !== '' && (
+          <div className={classNames(`${helpColor}`, 'caption mt-1', `${helpTextHeight}`, `${classNameCaption}`)}>
+            {helpText}
+          </div>
         )}
       </div>
     </div>
   );
 };
+
+AppInputText.defaultProps = {
+  passwordEye: false,
+  required: false,
+  labelWidth: '',
+  classNameCaption: '',
+  disabled: false,
+  width: '',
+  direction: 'flex flex-col items-start',
+  label: '',
+  placeholder: '',
+  type: 'text',
+  autoComplete: 'off',
+  padding: 'px-3',
+  helpText: '',
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  onFocus: () => {},
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  onChange: () => {},
+  helpColor: 'text-red-500',
+  helpBorder: 'border-red-500 border-2',
+  borderColor: '',
+  bgColor: 'bg-background',
+  bgPlaceholder: 'placeholder-gray-400',
+  labelColor: 'text-gray-700',
+  className: '',
+  height: 'h-10',
+  helpTextHeight: 'h-2',
+  passwordEyeColor: 'text-black',
+};
+
+export default AppInputText;

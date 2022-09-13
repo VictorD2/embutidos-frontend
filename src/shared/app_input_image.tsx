@@ -1,5 +1,5 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useEffect, useState } from 'react';
-
 // Icons
 import { PhotographIcon } from '@heroicons/react/outline';
 import { toast } from 'react-toastify';
@@ -10,7 +10,7 @@ type AppInputImageProps = {
   name: string;
   value: string;
   label?: string;
-  onChange: Function;
+  onChange: React.ChangeEventHandler<HTMLInputElement>;
   helpText?: string;
   helpColor?: string;
   labelColor?: string;
@@ -18,18 +18,18 @@ type AppInputImageProps = {
   fileType?: string[];
 };
 
-export const AppInputImage = ({
+const AppInputImage = ({
   name,
   value,
   label,
-  fileType = ['image/svg+xml', 'image/png', 'image/jpeg', 'image/jpg'],
-  fileTypeMessage = '.jpg, .png, .svg',
+  fileType,
+  fileTypeMessage,
   onChange,
   helpText,
-  helpColor = 'text-red-500',
-  labelColor = 'text-gray-700',
+  helpColor,
+  labelColor,
 }: AppInputImageProps) => {
-  const classNames = (...classes: any): string => {
+  const classNames = (...classes: string[]): string => {
     return classes.filter(Boolean).join(' ');
   };
 
@@ -48,19 +48,18 @@ export const AppInputImage = ({
 
   const onSelectFile = (e: InputEvent) => {
     if (!e.target.files || e.target.files.length === 0) return setSelectedFile(undefined);
-    if (!fileType.includes(e.target.files[0].type)) {
+    if (!`${fileType}`.includes(e.target.files[0].type)) {
       toast.warning('That file type is not supported');
-      setSelectedFile(undefined);
-      return;
+      return setSelectedFile(undefined);
     }
     setSelectedFile(e.target.files[0]);
-    onChange(e);
+    return onChange(e);
   };
   return (
     <div className="flex flex-col items-start">
       {label && (
         <div className="my-2">
-          <label htmlFor={name} className={classNames('block text-sm font-medium mt-1', labelColor)}>
+          <label htmlFor={name} className={classNames('block text-sm font-medium mt-1', `${labelColor}`)}>
             {label}
           </label>
         </div>
@@ -68,7 +67,6 @@ export const AppInputImage = ({
       <label className="cursor-pointer border-dashed border-2 border-gray-400 w-full p-4">
         {value && !selectedFile && (
           <div className="flex flex-row justify-center items-center max-h-20 h-20">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src={value} alt="" width={100} height={100} />
           </div>
         )}
@@ -81,13 +79,24 @@ export const AppInputImage = ({
         )}
         {selectedFile && (
           <div className="flex flex-row justify-center items-center max-h-20 h-20">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src={preview} alt="" width={100} height={100} />
           </div>
         )}
         <input name={name} type="file" className="hidden" onChange={onSelectFile} />
       </label>
-      {helpText && <div className={classNames(helpColor, 'caption mt-1')}>{helpText}</div>}
+      {helpText && <div className={classNames(`${helpColor}`, 'caption mt-1')}>{helpText}</div>}
     </div>
   );
 };
+
+AppInputImage.defaultProps = {
+  label: '',
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  helpText: '',
+  helpColor: 'text-red-500',
+  labelColor: 'text-gray-700',
+  fileTypeMessage: '.jpg, .png, .svg',
+  fileType: ['image/svg+xml', 'image/png', 'image/jpeg', 'image/jpg'],
+};
+
+export default AppInputImage;

@@ -1,12 +1,16 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable arrow-parens */
 import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import { toast } from 'react-toastify';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
+import { useAuth } from '@contexts/auth.context';
 import { ILoginContext, initialStateLogin, initialStateRegister } from '@interfaces/login.interface';
 import { IUser } from '@interfaces/auth.interface';
+import { getErrorResponse } from '@utils/helpers';
+import { LoginSchema, RegisterSchema } from '@src/schemas/login.schema';
 import ClsAuth from '@class/ClsAuth';
-import useAuth from '@hooks/useAuth';
 
 export const LoginContext = React.createContext({} as ILoginContext);
 
@@ -18,31 +22,6 @@ export const LoginProvider = ({ children }: { children: JSX.Element }) => {
   const router = useRouter();
   const { setUser } = useAuth();
 
-  // Schema Login
-  const LoginSchema = {
-    email: Yup.string().required('Este campo es obligatorio').email('El correo no tiene un formato adecuado'),
-    password: Yup.string()
-      .required('Este campo es obligatorio')
-      .min(8, 'La contraseña tiene que ser de minimo 8 caracteres '),
-  };
-
-  // Schema Register
-  const RegisterSchema = {
-    email: Yup.string().required('Este campo es obligatorio').email('El correo no tiene un formato adecuado'),
-    password: Yup.string()
-      .required('Este campo es obligatorio')
-      .min(8, 'La contraseña tiene que ser de minimo 8 caracteres '),
-    repeatPassword: Yup.string()
-      .required('Este campo es obligatorio')
-      .min(8, 'La contraseña tiene que ser de minimo 8 caracteres '),
-    name: Yup.string().required('Este campo es obligatorio'),
-    address: Yup.string().optional(),
-    phone: Yup.string().optional().length(9, 'El telefono debe ser de 9 números'),
-    ruc: Yup.string()
-      .required('Este campo es obligatorio')
-      .matches(/^[0-9]{8}(?:-[0-9]{2})?$/, 'El dni o ruc no coincide el tamaño de digitos'),
-  };
-
   // Submit Login
   const formikLogin = useFormik({
     initialValues: initialStateLogin,
@@ -52,7 +31,7 @@ export const LoginProvider = ({ children }: { children: JSX.Element }) => {
     onSubmit: async formValue => {
       setLoading(true);
       // Message Please Wait...
-      let toastId = toast.loading('Por favor espere...');
+      const toastId = toast.loading('Por favor espere...');
       try {
         const user: IUser = await ClsAuth.login(formValue);
         // Message Successs
@@ -65,19 +44,12 @@ export const LoginProvider = ({ children }: { children: JSX.Element }) => {
           draggable: true,
         });
         setUser(user);
-        console.log(user);
-        if ((user.rol.name = 'Administrador')) return router.push('/dashboard/pedidos');
-        router.push('/');
+        if (user.rol.name === 'Administrador') return router.push('/dashboard/pedidos');
+        return router.push('/');
       } catch (error: any) {
-        let errorMessage = error.message;
-        if (error.response) {
-          if (error.response.data) {
-            if (error.response.data.message) errorMessage = error.response.data.message;
-          }
-        }
         // Message Error
         toast.update(toastId, {
-          render: errorMessage,
+          render: getErrorResponse(error),
           type: 'warning',
           isLoading: false,
           autoClose: 2000,
@@ -85,7 +57,7 @@ export const LoginProvider = ({ children }: { children: JSX.Element }) => {
           draggable: true,
         });
       }
-      setLoading(false);
+      return setLoading(false);
     },
   });
 
@@ -98,7 +70,7 @@ export const LoginProvider = ({ children }: { children: JSX.Element }) => {
     onSubmit: async formValue => {
       setLoading(true);
       // Message Please Wait...
-      let toastId = toast.loading('Por favor espere...');
+      const toastId = toast.loading('Por favor espere...');
       try {
         const user: IUser = await ClsAuth.register(formValue);
         setUser(user);
@@ -113,15 +85,9 @@ export const LoginProvider = ({ children }: { children: JSX.Element }) => {
         });
         router.push('/');
       } catch (error: any) {
-        let errorMessage = error.message;
-        if (error.response) {
-          if (error.response.data) {
-            if (error.response.data.message) errorMessage = error.response.data.message;
-          }
-        }
         // Message Error
         toast.update(toastId, {
-          render: errorMessage,
+          render: getErrorResponse(error),
           type: 'warning',
           isLoading: false,
           autoClose: 2000,
@@ -135,6 +101,7 @@ export const LoginProvider = ({ children }: { children: JSX.Element }) => {
 
   return (
     <LoginContext.Provider
+      // eslint-disable-next-line react/jsx-no-constructed-context-values
       value={{
         isLogin,
         setIsLogin,
@@ -148,3 +115,9 @@ export const LoginProvider = ({ children }: { children: JSX.Element }) => {
     </LoginContext.Provider>
   );
 };
+
+export function useLogin() {
+  const context = React.useContext(LoginContext);
+  if (!context) throw new Error('useLogin debe estar dentro del proveedor usuario context');
+  return context;
+}

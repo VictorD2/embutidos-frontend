@@ -1,5 +1,6 @@
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/outline';
 import React, { useState } from 'react';
+
 type AppCarouselProps = {
   images: string[];
 };
@@ -7,13 +8,13 @@ type AppCarouselProps = {
 const AppCarousel = ({ images }: AppCarouselProps) => {
   const [selected, setSelected] = useState<number>(0);
 
-  const nextImage = () => {
+  const nextImage = (): void => {
     if (selected === images.length - 1) return setSelected(0);
-    setSelected(selected + 1);
+    return setSelected(selected + 1);
   };
-  const prevImage = () => {
+  const prevImage = (): void => {
     if (selected === 0) return setSelected(images.length - 1);
-    setSelected(selected - 1);
+    return setSelected(selected - 1);
   };
 
   return (
@@ -22,12 +23,12 @@ const AppCarousel = ({ images }: AppCarouselProps) => {
         {images.map((item, i) => {
           return (
             <div
-              key={i}
+              key={item}
               className={`${
                 i === selected ? '' : 'hidden'
               } relative float-left w-full h-full bg-cover bg-no-repeat bg-center`}
               style={{ backgroundImage: `url(${item})` }}
-            ></div>
+            />
           );
         })}
       </div>

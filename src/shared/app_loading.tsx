@@ -1,5 +1,5 @@
+/* eslint-disable comma-dangle */
 import React from 'react';
-
 // Icons
 import { RefreshIcon } from '@heroicons/react/outline';
 
@@ -11,14 +11,29 @@ type AppLoadingProps = {
   height?: string;
 };
 
-export const AppLoading = ({ overlayColor = 'bg-gray-900', text = 'Loading Data...', textColor = 'text-white', height = 'h-64' }: AppLoadingProps) => {
-  const classNames = (...classes: any): string => {
+// eslint-disable-next-line object-curly-newline
+const AppLoading = ({ overlayColor, text, textColor, height }: AppLoadingProps) => {
+  const classNames = (...classes: string[]): string => {
     return classes.filter(Boolean).join(' ');
   };
   return (
-    <div className={classNames(overlayColor, height, 'w-full opacity-70 top-0 left-0  absolute flex flex-col items-center justify-center gap-2')}>
-      <RefreshIcon className={classNames(textColor, 'w-10 h-10 animate-spin')} />
-      <span className={classNames(textColor)}>{text}</span>
+    <div
+      className={classNames(
+        `${overlayColor}`,
+        `${height}`,
+        'w-full opacity-70 top-0 left-0  absolute flex flex-col items-center justify-center gap-2'
+      )}
+    >
+      <RefreshIcon className={classNames(`${textColor}`, 'w-10 h-10 animate-spin')} />
+      <span className={classNames(`${textColor}`)}>{text}</span>
     </div>
   );
 };
+AppLoading.defaultProps = {
+  overlayColor: 'bg-gray-900',
+  text: 'Cargando Datos...',
+  textColor: 'text-white',
+  height: 'h-64',
+};
+
+export default AppLoading;

@@ -1,20 +1,19 @@
-import usePedido from '@hooks/usePedido';
-import { AppInputText } from '@shared/app_input_text';
-import { AppText } from '@shared/app_text';
+/* eslint-disable arrow-parens */
 import React, { useState } from 'react';
-import ProductoItem from './ProductoItem';
 import { SearchIcon } from '@heroicons/react/outline';
-import useProducto from '@hooks/useProducto';
+import AppInputText from '@shared/app_input_text';
+import AppText from '@shared/app_text';
+import ProductoItem from '@components/Dashboard/Pedidos/ProductSide/ProductoItem';
+import { useProducto } from '@contexts/products.context';
 
 type InputEvent = React.ChangeEvent<HTMLInputElement>;
 
 const ProductoSide = () => {
   const [search, setSearch] = useState('');
-  const { productos, filter } = useProducto();
+  const { productos } = useProducto();
 
   const handleSearchChange = (e: InputEvent) => {
     setSearch(e.target.value);
-    filter(e.target.value);
   };
 
   return (
@@ -32,7 +31,7 @@ const ProductoSide = () => {
           name="search"
           onChange={handleSearchChange}
         />
-        <SearchIcon className="w-5 h-5 absolute right-5 top-3"></SearchIcon>
+        <SearchIcon className="w-5 h-5 absolute right-5 top-3" />
       </div>
       <div className="w-full h-full">
         <AppText textColor="text-gray-500" as="p" className="font-bold">
@@ -40,7 +39,7 @@ const ProductoSide = () => {
         </AppText>
         <div className="lg:min-h-[calc(73.vh-4rem)] md:min-h-[calc(65vh-4rem)] min-h-[calc(50vh-4rem)] lg:max-h-[24rem] md:max-h-[24rem] max-h-[8rem] pr-4 flex flex-col gap-2 overflow-y-auto scrollbar-thin scrollbar-thumb-secondary scrollbar-track-transparent">
           {productos.map(product => {
-            return <ProductoItem key={product.id + 'xd'} producto={product} />;
+            return <ProductoItem key={product.id} producto={product} />;
           })}
         </div>
       </div>

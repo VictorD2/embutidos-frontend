@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import React, { ReactNode } from 'react';
 import 'react-toastify/dist/ReactToastify.css';
 import AppHeader from '@shared/app_header';
 import AppFooter from '@shared/app_footer';

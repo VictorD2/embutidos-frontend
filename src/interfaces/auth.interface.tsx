@@ -1,10 +1,5 @@
 import { Dispatch } from 'react';
 
-export interface IAuthContext {
-  user: IUser;
-  setUser: Dispatch<IUser>;
-}
-
 export interface IUser {
   id?: number;
   email: string;
@@ -20,6 +15,11 @@ export interface IUser {
     id: number;
     name: string;
   };
+}
+
+export interface IAuthContext {
+  user: IUser;
+  setUser: Dispatch<IUser>;
 }
 
 export const initialStateUser = {
