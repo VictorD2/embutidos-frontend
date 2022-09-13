@@ -1,4 +1,4 @@
-import { IProducto } from '@interfaces/producto.interface';
+import { IProducto } from '@interfaces/Product/producto.interface';
 import jsonProductos from './productos.json';
 
 class ClsPedido {

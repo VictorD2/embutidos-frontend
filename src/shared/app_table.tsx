@@ -4,7 +4,7 @@ import AppLoading from '@shared/app_loading';
 
 // Types
 type AppTableProps = {
-  columns: ReactNode[];
+  columns: ReactNode;
   rows: ReactNode[];
   count: number;
   // selectable?: boolean;
@@ -17,11 +17,9 @@ type AppTableProps = {
 const AppTable = ({ columns, rows, count, emptyMessage, loading, heightLoading }: AppTableProps) => {
   return (
     <div className="w-24 min-w-full relative">
-      <div className="scrollbar-thin scrollbar-thumb-secondary scrollbar-track-gray-100 overflow-x-scroll relative">
+      <div className="scrollbar-thin min-h-[100vh] scrollbar-thumb-secondary scrollbar-track-gray-100 overflow-x-scroll relative">
         <table className="rounded-b-md min-w-full relative divide-y divide-gray-200">
-          <thead className="bg-gray-50">
-            <tr>{columns}</tr>
-          </thead>
+          <thead className="bg-gray-50">{columns}</thead>
           <tbody className="bg-white divide-y divide-gray-200 tablaDatos">{count > 0 && rows}</tbody>
         </table>
         {count === 0 && loading && <AppEmpty message={emptyMessage} />}

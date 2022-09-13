@@ -25,10 +25,10 @@ type AppInputTextProps = {
   width?: string;
   disabled?: boolean;
   classNameCaption?: string;
+  helpTextHeight?: string;
   labelWidth?: string;
   passwordEye?: boolean;
   passwordEyeColor?: string;
-  helpTextHeight?: string;
   required?: boolean;
   padding?: string;
 };
@@ -128,7 +128,7 @@ const AppInputText = ({
             </div>
           )}
         </div>
-        {helpText !== undefined && (
+        {helpText !== '' && (
           <div className={classNames(`${helpColor}`, 'caption mt-1', `${helpTextHeight}`, `${classNameCaption}`)}>
             {helpText}
           </div>

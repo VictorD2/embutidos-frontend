@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { IPedidoSideContext } from '@interfaces/pedidos.interface';
-import { initialStateIProducto } from '@interfaces/producto.interface';
+import { initialStateIProducto } from '@interfaces/Product/producto.interface';
 import { productEditSchema } from '@src/schemas/pedido.schema';
 import { usePedido } from '@contexts/pedidos.context';
 
@@ -21,7 +21,7 @@ export const PedidoSideProvider = ({ children }: { children: JSX.Element }) => {
     onSubmit: async formValue => {
       setProductosPedido(
         productosPedido.map(item => {
-          if (item.id === formValue.id) return { ...item, quantity: parseInt(`${formValue.quantity}`, 10) };
+          if (item.id === formValue.id) return { ...item, stock: parseInt(`${formValue.stock}`, 10) };
           return item;
           // eslint-disable-next-line comma-dangle
         })

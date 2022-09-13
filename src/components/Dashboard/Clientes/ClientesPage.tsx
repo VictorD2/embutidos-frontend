@@ -1,4 +1,5 @@
 import React from 'react';
+import { PlusCircleIcon } from '@heroicons/react/outline';
 import AppBreadCrumb from '@shared/app_breadcrums';
 import AppButton from '@shared/app_button';
 import AppControls from '@shared/app_controls';
@@ -29,7 +30,10 @@ const ClientesPage = () => {
             // setOpenModal(true);
           }}
         >
-          Agregar Cliente
+          <div className="flex gap-2">
+            <PlusCircleIcon className="w-[25px]" />
+            Agregar Cliente
+          </div>
         </AppButton>
       </AppControls>
       <div className="bg-white rounded-lg shadow-lg mt-4">

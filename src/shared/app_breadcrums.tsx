@@ -25,7 +25,7 @@ const AppBreadCrumb = ({ colorText, fontSize, colorFirst, routes }: AppBreadCrum
   };
 
   return (
-    <div className="app-row items-center w-full ltr:pl-7 rtl:pr-7 pt-6 block">
+    <div className="app-row items-center w-full pr-7 pt-6 block">
       {routes.map((item, i) => {
         if (i === routes.length - 1) {
           return (

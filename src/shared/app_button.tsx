@@ -37,7 +37,7 @@ const AppButton = ({
   };
 
   return (
-    <Ripples className={className}>
+    <Ripples className={classNames(`${className}`, `${height}`)}>
       <button
         // eslint-disable-next-line arrow-parens
         onClick={e => {
@@ -52,9 +52,8 @@ const AppButton = ({
           variant === 'contained' ? 'text-white' : `${textColor}`,
           variant === 'contained' ? `${bgColor}` : '',
           variant === 'contained' ? 'hover:opacity-90' : `hover:${bgColor} hover:bg-opacity-25 hover:${textColor}`,
-          `${height}`,
           `${padding}`,
-          'rounded-md w-full flex justify-center items-center button capitalize'
+          'rounded-md w-full h-full flex justify-center items-center button capitalize'
         )}
       >
         {loading ? (

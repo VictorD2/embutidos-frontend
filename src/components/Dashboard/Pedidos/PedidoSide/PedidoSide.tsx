@@ -12,7 +12,7 @@ import AppButton from '@shared/app_button';
 import AppModal from '@shared/app_modal';
 import ModalEditProducto from '@components/Dashboard/Pedidos/PedidoSide/ModalEditProducto';
 import { usePedidoSide } from '@contexts/pedidoSide.context';
-import { IProducto } from '@interfaces/producto.interface';
+import { IProducto } from '@interfaces/Product/producto.interface';
 import AppConfirm from '@shared/app_confirm';
 
 type InputEvent = React.ChangeEvent<HTMLInputElement>;
@@ -45,8 +45,8 @@ const PedidoSide = () => {
   const handleEditButton = (product: IProducto) => {
     formikProductEdit.setFieldValue('id', product.id);
     formikProductEdit.setFieldValue('name', product.name);
-    formikProductEdit.setFieldValue('price', product.price);
-    formikProductEdit.setFieldValue('quantity', product.quantity);
+    formikProductEdit.setFieldValue('priceCost', product.priceCost);
+    formikProductEdit.setFieldValue('stock', product.stock);
     setOpenModalEdit(true);
   };
 
@@ -54,8 +54,8 @@ const PedidoSide = () => {
   const handleTrashButton = (product: IProducto) => {
     formikProductEdit.setFieldValue('id', product.id);
     formikProductEdit.setFieldValue('name', product.name);
-    formikProductEdit.setFieldValue('price', product.price);
-    formikProductEdit.setFieldValue('quantity', product.quantity);
+    formikProductEdit.setFieldValue('priceCost', product.priceCost);
+    formikProductEdit.setFieldValue('stock', product.stock);
     setOpenConfirm(true);
   };
 
@@ -88,10 +88,10 @@ const PedidoSide = () => {
           {item.name}
         </td>
         <td className="bg-background border-r-2 border-r-gray-500 px-6 py-2 whitespace-nowrap text-sm font-medium text-gray-900">
-          {item.quantity}
+          {item.stock}
         </td>
         <td className="bg-background border-r-2 border-r-gray-500 px-6 py-2 whitespace-nowrap text-sm font-medium text-gray-900">
-          {parseFloat(`${item.price * item.quantity}`).toFixed(2)}
+          {parseFloat(`${item.priceCost * item.stock}`).toFixed(2)}
         </td>
         <td className="bg-background border-0 px-6 py-2 whitespace-nowrap text-sm font-medium text-gray-900">
           <div className="w-full h-full flex justify-around gap-2">
@@ -176,7 +176,7 @@ const PedidoSide = () => {
         <div className="lg:min-h-[calc(50vh-4rem)] md:min-h-[calc(50vh-4rem)] min-h-[calc(50vh-4rem)] lg:max-h-[24rem] md:max-h-[24rem] max-h-[8rem] px-4 flex flex-col justify-between gap-2 overflow-y-auto scrollbar-thin scrollbar-thumb-secondary scrollbar-track-transparent">
           <AppTable
             emptyMessage="No hay productos registrados"
-            columns={columns}
+            columns={<tr>{columns}</tr>}
             rows={rows}
             count={productosPedido.length}
             loading

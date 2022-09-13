@@ -15,17 +15,14 @@ type AppDropdownTypes = {
 const AppDropdown = ({ name, child, as }: AppDropdownTypes) => {
   const router = useRouter();
   return (
-    <Menu as={as} className="relative inline-block ltr:text-left rtl:text-right">
+    <Menu as={as} className="relative inline-block text-left">
       <div>
         <Menu.Button>
           <div className="flex flex-row gap-2 justify-between items-center text-gray-400 uppercase font-bold hover:text-white transition-all duration-700">
-            <div className="md:block ltr:md:ml-2 rtl:md:mr-2 truncate" style={{ maxWidth: '7rem' }}>
+            <div className="md:block md:ml-2truncate" style={{ maxWidth: '7rem' }}>
               {name}
             </div>
-            <ChevronDownIcon
-              className="w-5 h-5 ltr:ml-2 rtl:mr-2 ltr:-mr-1 rtl:-ml-1 text-violet-200 hover:text-violet-100"
-              aria-hidden="true"
-            />
+            <ChevronDownIcon className="w-5 h-5 ml-2 -mr-1 text-violet-200 hover:text-violet-100" aria-hidden="true" />
           </div>
         </Menu.Button>
       </div>
@@ -38,7 +35,7 @@ const AppDropdown = ({ name, child, as }: AppDropdownTypes) => {
         leaveFrom="transform opacity-100 scale-100"
         leaveTo="transform opacity-0 scale-95"
       >
-        <Menu.Items className="absolute ltr:right-0 rtl:left-0 w-56 mt-2 origin-top-right bg-layout divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none z-50">
+        <Menu.Items className="absolute right-0 w-56 mt-2 origin-top-right bg-layout divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none z-50">
           <div className="px-1 py-1 ">
             {child.map(item => {
               return (

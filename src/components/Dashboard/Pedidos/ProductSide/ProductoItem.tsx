@@ -7,13 +7,13 @@ import { toast } from 'react-toastify';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { PlusCircleIcon } from '@heroicons/react/outline';
-import { IProducto } from '@interfaces/producto.interface';
+import { IProducto } from '@interfaces/Product/producto.interface';
 import AppButton from '@shared/app_button';
 import AppText from '@shared/app_text';
 import AppInputText from '@shared/app_input_text';
 import { usePedido } from '@contexts/pedidos.context';
 import { useProducto } from '@contexts/products.context';
-import { productAddSchema } from '@src/schemas/pedido.schema';
+import { productEditSchema } from '@src/schemas/pedido.schema';
 
 type ProductoItemProps = {
   producto: IProducto;
@@ -26,27 +26,30 @@ const ProductoItem = ({ producto }: ProductoItemProps) => {
   const { productosPedido, setProductosPedido } = usePedido();
 
   const formikQuantity = useFormik({
-    validationSchema: Yup.object(productAddSchema),
-    initialValues: { quantity: producto.quantity },
-    initialErrors: { quantity: '' },
+    validationSchema: Yup.object(productEditSchema),
+    initialValues: { stock: producto.stock },
+    initialErrors: { stock: '' },
     onSubmit: formValues => {
+      console.log(formValues);
+      console.log(productosPedido);
       let finded = true;
       setProductosPedido(
         productosPedido.map(item => {
+          console.log(producto, item);
           if (item.id === producto.id) {
             finded = false;
-            return { ...item, quantity: item.quantity + formValues.quantity };
+            return { ...item, stock: item.stock + formValues.stock };
           }
           return item;
         })
       );
       if (finded) {
-        const newProduct: IProducto = {
+        const newProduct = {
           id: producto.id,
           name: producto.name,
           photo: producto.photo,
-          price: producto.price,
-          quantity: formValues.quantity,
+          priceCost: producto.priceCost,
+          stock: formValues.stock,
         };
         setProductosPedido([...productosPedido, newProduct]);
       }
@@ -54,7 +57,7 @@ const ProductoItem = ({ producto }: ProductoItemProps) => {
   });
 
   const handleChangeQuantity = (e: InputEvent) => {
-    formikQuantity.setFieldValue('quantity', parseInt(`${e.target.value}`, 10));
+    formikQuantity.setFieldValue('stock', parseInt(`${e.target.value}`, 10));
   };
 
   // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
@@ -65,9 +68,10 @@ const ProductoItem = ({ producto }: ProductoItemProps) => {
 
   // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
   const handleClickButton = (e: React.MouseEvent<HTMLButtonElement>) => {
-    if (formikQuantity.values.quantity <= 0) {
+    if (formikQuantity.values.stock <= 0) {
       return toast.warning('Ingrese una cantidad', { autoClose: 2000, closeButton: true, draggable: true });
     }
+    console.log(formikQuantity.errors);
     return formikQuantity.submitForm();
   };
 
@@ -101,8 +105,8 @@ const ProductoItem = ({ producto }: ProductoItemProps) => {
               padding="px-1"
               type="number"
               helpColor="hidden"
-              helpText={formikQuantity.errors.quantity}
-              value={`${formikQuantity.values.quantity}`}
+              helpText={formikQuantity.errors.stock}
+              value={`${formikQuantity.values.stock}`}
               name={`quantity${producto.id}`}
               label="Cantidad:"
               labelWidth="lg:block hidden"
@@ -118,20 +122,22 @@ const ProductoItem = ({ producto }: ProductoItemProps) => {
               fontSize="text-md"
               textColor="text-gray-500 hover:text-secondary transition-all duration-500"
             >
-              {`S/.${producto.price}`}
+              {`S/.${producto.priceCost}`}
             </AppText>
           </div>
           {/* Button Add */}
           <div className="h-3/6 w-1/3 flex justify-center items-center">
             <AppButton
-              bgColor={`${formikQuantity.values.quantity <= 0 ? 'bg-green-500 opacity-70' : 'bg-green-600'}`}
-              className="mb-4"
-              height="w-full rounded-2xl flex gap-1 justify-center items-center h-8"
+              bgColor={`${formikQuantity.values.stock <= 0 ? 'bg-green-500 opacity-70' : 'bg-green-600'}`}
+              className="mb-4 lg:w-32 rounded-2xl"
+              height="h-8"
               onClick={handleClickButton}
               // disabled={parseInt(quantity) === 0}
             >
-              <span className="lg:block md:hidden hidden">Agregar</span>
-              <PlusCircleIcon className="w-[25px]" />
+              <div className="flex items-center gap-1">
+                <span className="lg:block md:hidden hidden">Agregar</span>
+                <PlusCircleIcon className="w-[25px]" />
+              </div>
             </AppButton>
           </div>
         </div>

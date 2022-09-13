@@ -31,7 +31,7 @@ const AppLoading = ({ overlayColor, text, textColor, height }: AppLoadingProps) 
 };
 AppLoading.defaultProps = {
   overlayColor: 'bg-gray-900',
-  text: 'Loading Data...',
+  text: 'Cargando Datos...',
   textColor: 'text-white',
   height: 'h-64',
 };

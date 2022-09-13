@@ -44,11 +44,11 @@ const ModalEditProducto = () => {
       />
       <AppInputText
         label="Cantidad"
-        name="quantity"
+        name="stock"
         placeholder="Ingrese la cantidad"
         type="number"
-        helpText={formikProductEdit.errors.quantity}
-        value={`${formikProductEdit.values.quantity}`}
+        helpText={formikProductEdit.errors.stock}
+        value={`${formikProductEdit.values.stock}`}
         onFocus={handleFocusInput}
         onChange={handleChangeInput}
         required
@@ -56,10 +56,10 @@ const ModalEditProducto = () => {
       <AppInputText
         className="focus:border-secondary focus:border-[1px] transition-colors duration-500"
         label="Precio"
-        name="price"
+        name="priceCost"
         required
         disabled
-        value={`${formikProductEdit.values.price * formikProductEdit.values.quantity}`}
+        value={`${formikProductEdit.values.priceCost * formikProductEdit.values.stock}`}
       />
       <div className="w-full flex justify-end">
         <AppButton type="submit" bgColor="bg-yellow-500">
