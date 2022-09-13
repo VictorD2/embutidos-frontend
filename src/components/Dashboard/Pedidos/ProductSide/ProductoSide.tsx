@@ -10,11 +10,10 @@ type InputEvent = React.ChangeEvent<HTMLInputElement>;
 
 const ProductoSide = () => {
   const [search, setSearch] = useState('');
-  const { productos, filter } = useProducto();
+  const { productos } = useProducto();
 
   const handleSearchChange = (e: InputEvent) => {
     setSearch(e.target.value);
-    filter(e.target.value);
   };
 
   return (

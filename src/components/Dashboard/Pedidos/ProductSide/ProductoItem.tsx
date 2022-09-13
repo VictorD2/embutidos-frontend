@@ -62,7 +62,7 @@ const ProductoItem = ({ producto }: ProductoItemProps) => {
 
   // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
   const handleClickImage = (e: ClickEvent) => {
-    setPhotoModal(producto.photo);
+    setPhotoModal(`${producto.photo}`);
     setOpenModal(true);
   };
 
